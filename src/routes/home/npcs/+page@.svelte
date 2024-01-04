@@ -39,8 +39,6 @@
         paginationSettings.page * paginationSettings.limit,
         paginationSettings.page * paginationSettings.limit + paginationSettings.limit
     )
-    console.log(source)
-
     
     tableSimple = {
         head:['Sex',"Name","Description","Current Location"],
