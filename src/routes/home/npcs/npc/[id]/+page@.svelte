@@ -59,3 +59,9 @@
         </div>
     </article>
 </main>
+
+<style lang="postcss">
+    p{
+	text-shadow: 2px 2px black;
+ }
+</style>

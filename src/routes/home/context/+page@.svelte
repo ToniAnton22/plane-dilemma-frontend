@@ -51,5 +51,7 @@
 </div>
 
 <style lang="postcss">
-
-  </style>
+    p{
+	text-shadow: 2px 2px black;
+    }
+ </style>

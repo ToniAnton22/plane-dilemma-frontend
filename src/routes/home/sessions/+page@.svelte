@@ -7,7 +7,7 @@
         <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </a>
-<img src="/images/ThePlanesEdited.png" class="absolute bg-cover bg-scroll brightness-50 opacity-80" alt="Planes revisioned"/>
+<img src="/images/ThePlanesEdited.png" class="absolute bg-cover bg-scroll brightness-[0.25] opacity-80 w-screen h-screen" alt="Planes revisioned"/>
 <main class="bg-no-repeat bg-cover bg-fixed w-screen h-full">
     <article class="flex flex-row gap-6 md:flex-row pt-9 relative">
         <div class="sticky top-0 z-30 w-36 h-[50vh] variant-ghost-primary overflow-y-auto text-white">
@@ -18,11 +18,11 @@
             <div class="card flex flex-col grow w-full relative variant-ghost-error">
                 <h2 class="mx-auto right-0 left-0 text-3xl underline pb-5">{summary?.title}</h2>
 
-                <div class="w-full flex flex-row mx-6 px-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-blue-100">
+                <div class="w-full flex flex-row mx-6 px-6 text-amber-300">
                     <div class="flex flex-col w-3/4">
                     {#each summary?.description.split(':') as sentence}
                 
-                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette">{sentence}.</p>
+                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-40">{sentence}.</p>
                 
                     {/each}
                     </div>
@@ -52,5 +52,8 @@
     .courgette::first-letter{
         font-family: Courgette;
         color: red;
+    }
+    p{
+        text-shadow: 2px 2px black;
     }
 </style>

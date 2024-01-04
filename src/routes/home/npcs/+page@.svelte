@@ -62,7 +62,7 @@
 <div class="container flex-col mx-auto mt-40">
     <input class="flex-1 bg-gradient-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600 p-2 my-4" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
 
-    <div class="table-container">
+    <div class="table-container text-shadow text-zinc-300">
         <!-- Native Table Element -->
         
         <Table class="table table-hover" source={tableSimple} interactive={true} on:selected={(e)=>onClickTable({id:e.detail[0]})} />
@@ -83,5 +83,7 @@
 </div>
 
 <style lang="postcss">
-   
+    .text-shadow{
+        text-shadow: 2px 2px 5px black;
+    }
 </style>
