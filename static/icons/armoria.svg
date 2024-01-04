@@ -1,0 +1,12 @@
+<svg width="1536" height="1820" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><defs><clipPath id="shield_689587326"><path d="M 100,5 C 85,30 40,35 15,40 c 40,35 20,90 40,115 15,25 40,30 45,45 5,-15 30,-20 45,-45 20,-25 0,-80 40,-115 C 160,35 115,30 100,5 Z"/></clipPath><clipPath id="division_689587326"><rect x="100" y="0" width="100" height="200"/></clipPath><style>.secondary {
+      fill: var(--secondary);
+    }
+    .tertiary {
+      fill: var(--tertiary);
+    }</style><radialGradient id="spotlight" cx="35%" cy="35%" r="100%">
+            <stop stop-color="#fff" stop-opacity=".3" offset="0"/>
+            <stop stop-color="#fff" stop-opacity=".15" offset=".2"/>
+            <stop stop-color="#000" stop-opacity="0" offset=".7"/>
+          </radialGradient><g id="mullet7" author="Azgaar" license="https://creativecommons.org/publicdomain/zero/1.0">
+    <polygon points="100 60 106.63 86.23 131.27 75.06 114.9 96.6 139 108.9 111.95 109.53 117.36 136.04 100 115.28 82.64 136.04 88.05 109.53 61 108.9 85.1 96.6 68.73 75.06 93.37 86.23"/>
+  </g><g id="inescutcheonDiamond" author="Azgaar" license="https://creativecommons.org/publicdomain/zero/1.0"><path transform="translate(67 67) scale(.33)" d="M 25,100 100,200 175,100 100,0 Z"/></g><style xmlns="http://www.w3.org/1999/xhtml" type="text/css"></style></defs>  <g clip-path="url(#shield_689587326)"><rect class="field" x="0" y="0" width="200" height="200" fill="#ffe066"/><g class="division" clip-path="url(#division_689587326)"><rect x="0" y="0" width="200" height="200" fill="#377cd7"/></g><g class="charge" i="0" charge="mullet7" fill="#b63a3a" stroke="#000" style="--secondary: #b63a3a; --tertiary: #b63a3a;"><use xlink:href="#mullet7" xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(-20 -20) scale(1.2)"/></g><g class="charge" i="1" charge="inescutcheonDiamond" fill="#cc7f19" stroke="#000" style="--secondary: #cc7f19; --tertiary: #cc7f19;"><use xlink:href="#inescutcheonDiamond" xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(76 76) scale(0.24)"/></g></g> <path class="grad" d="M 100,5 C 85,30 40,35 15,40 c 40,35 20,90 40,115 15,25 40,30 45,45 5,-15 30,-20 45,-45 20,-25 0,-80 40,-115 C 160,35 115,30 100,5 Z" fill="url(#spotlight)" stroke="#333333" stroke-width="1" style="pointer-events: none;"/>  </svg>

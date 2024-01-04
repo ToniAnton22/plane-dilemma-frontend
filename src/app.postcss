@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Courgette&family=Ephesis&family=Great+Vibes&family=Skranji&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+@use postcss-for;
+
+
+
+html,
+body {
+	@apply h-full overflow-hidden;
+	font-family: 'Courgette';
+}
+
+/* gold-nouveau theme */
+@font-face {
+	font-family: 'Quicksand';
+	src: url('/fonts/Quicksand.ttf');
+	font-display: swap;
+}
+/* vintage theme */
+@font-face {
+	font-family: 'Abril Fatface';
+	src: url('/fonts/AbrilFatface.ttf');
+	font-display: swap;
+}
+
+.capital{
+
+	background-image: url('/icons/castle.png');
+	background-size:cover;
+	width:50px;
+	height:50px;
+}
+.town{
+	background-image: url('/icons/houses.png');
+	background-size:cover;
+	width:30px;
+	height:30px;
+}
+.port{
+	background-image: url('/icons/port.png');
+	background-size:cover;
+	width:30px;
+	height:30px;
+}
+.mapboxgl-marker{
+	display: none;
+}
+.mapboxgl-canvas-container > div {
+
+
+}
+
+
+.mapboxgl-popup {
+	background-color: transparent;
+	margin:0;
+	padding:0;
+
+}
+.mapboxgl-popup-content{
+	background-color: transparent;
+}
+.mapboxgl-popup-content-wrapper{
+	background-color: red;
+
+}
+
+
+@for $i from 1 to 1401{
+}
+
+
+@keyframes placeMarkers{
+	0%{
+		top:-500px;
+		transform-origin:0 0 0;
+		opacity:0;
+	} 
+	50%{
+		opacity:0.5;
+	}
+	100%{
+		top:0;
+		opacity:1
+	}
+}
