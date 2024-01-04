@@ -7,7 +7,7 @@
         <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </a>
-<img src="/images/ThePlanesEdited.png" class="absolute bg-cover bg-scroll brightness-76 opacity-80" alt="Planes revisioned"/>
+<img src="/images/ThePlanesEdited.png" class="absolute bg-cover bg-scroll brightness-50 opacity-80" alt="Planes revisioned"/>
 <main class="bg-no-repeat bg-cover bg-fixed w-screen h-full">
     <article class="flex flex-row gap-6 md:flex-row pt-9 relative">
         <div class="sticky top-0 z-30 w-36 h-[50vh] variant-ghost-primary overflow-y-auto text-white">
