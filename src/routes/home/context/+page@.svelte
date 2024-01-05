@@ -40,7 +40,7 @@
                     <svelte:fragment slot="summary">{p.title}</svelte:fragment>
                     <svelte:fragment slot="content">
                         {#each p.info.split(".") as sentence}
-                          <p>{sentence}.</p>
+                          <p class="font-serif">{sentence}.</p>
                         {/each} 
                 </svelte:fragment>
                 </AccordionItem>
