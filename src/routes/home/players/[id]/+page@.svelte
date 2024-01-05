@@ -10,33 +10,33 @@
     themeMap.set(
         "Vanelis",{
         theme:"bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-stone-900",
-        textTheme:"font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 uppercase"    
+        textTheme:"font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-blue-200 "    
     })
 
     if(data?.player?.name === "Vanelis"){
         theme = "bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-sky-900"
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 "
     }
     else if(data?.player?.name === "Ng`ombe Radolack"){
         theme="bg-gradient-to-tr from-stone-900 via-orange-950 to-yellow-800 w-full h-full md:border-l-4 md:border-stone-900"
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-stone-400 uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-200 to-stone-100 "
     }
     else if(data?.player?.name === "Jamond Carter"){
         theme="bg-gradient-to-br from-indigo-900 via-rose-950 to-blue-800 w-full h-full md:border-l-4 md:border-violet-400"
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-blue-400 uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-blue-400 "
         
     }
     else if(data?.player?.name === "Kalahari"){
         theme=`bg-gradient-to-b from-gray-500 via-rose-100 to-slate-800 w-full h-full md:border-l-4 md:border-gray-400`
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  "
     }
     else if(data?.player?.name === "Fennex Stoutwings"){
         theme="bg-gradient-to-t from-amber-200 via-orange-400 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden"
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-700 to-amber-200 uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-200 "
     }
     else if(data?.player?.name === "Bastion"){
         theme="bg-gradient-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900"
-        textTheme="font-comicsans text-4xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-neutral-100 uppercase"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-neutral-100 "
     }
 
 </script>
@@ -46,7 +46,7 @@
     </svg>
 </a>
 <header class="absolute md:bottom-1 md:left-6 right-3 w-fit z-10 ">
-    <h1 class={textTheme}>{data?.player?.name}</h1>
+    <h1 class='{textTheme} uppercase'>{data?.player?.name}</h1>
 </header>
 <main class="h-full flex flex-col md:flex-row relative overflow-hidden">
    <div class="hidden md:block w-full md:w-1/2 absolute md:fixed bg-no-repeat md:bg-fixed object-scale-down md:bg-top md:h-full overflow-hidden avatar-animation" style="background-image: url({data?.player?.avatar})">
@@ -64,7 +64,7 @@
         border="border-0"
         class="{theme}"
         spacing="y-4"
-        regionPanel="mb-10 space-y-4 pt-4 indent-4 px-2 justify-center text-center p-10 overflow-auto overscroll-auto {textTheme} text-lg"
+        regionPanel="mb-10 space-y-4 pt-4 indent-4 px-2 justify-center p-10 overflow-auto overscroll-auto {textTheme} text-lg"
     >
         <Tab bind:group={tabSet} name="description" value={0}>
             <svelte:fragment slot="lead">Description</svelte:fragment>
@@ -108,6 +108,7 @@
 </main>
 
 <style>
+
     @keyframes custom-animation{
         0%{
             filter:blur(0px);

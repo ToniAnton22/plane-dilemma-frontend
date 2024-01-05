@@ -29,9 +29,9 @@
                     {#if summary?.link.startsWith("https")}
                     <a class="card text-center invisible flex flex-col shrink w-1/4 md:visible p-2 scale-75 hover:scale-100 variant-glass-primary h-fit text-white font-bold hover:bg-cyan-200 hover:text-black rounded-full" href='{summary?.link}'>
                         Youtube video:
-                        <p class="font-bold" >
+                        <span class="font-bold" >
                             {summary?.title}
-                        </p>
+                        </span>
                     </a>
                     {/if}
                  
