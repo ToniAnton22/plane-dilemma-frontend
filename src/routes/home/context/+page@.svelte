@@ -4,17 +4,18 @@
      let filter
 
      const drawerStore = getDrawerStore();
+     
     let content = data?.context
     
     function filterContent(filter) {
         console.log(filter)
         if(!filter){
-            content = data?.context
+            content = data?.context.trim()
         }else{
             content = data?.context.filter((p) =>
             { 
                 return (p.title.toLowerCase().includes(filter.toLowerCase()) || p.info.toLowerCase().includes(filter.toLowerCase()))
-            })   
+            }).trim()   
       }
       console.log(content)
     }
@@ -39,8 +40,9 @@
                 <AccordionItem regionPanel="font-bold text-xl text-stone-100 " class="text-2xl">
                     <svelte:fragment slot="summary">{p.title}</svelte:fragment>
                     <svelte:fragment slot="content">
-                        {#each p.info.split(".") as sentence}
-                          <p class="font-serif">{sentence}.</p>
+                        {#each p.info.split("/n") as sentence}
+                          <p class="font-serif">{sentence}</p>
+                          <br>
                         {/each} 
                 </svelte:fragment>
                 </AccordionItem>

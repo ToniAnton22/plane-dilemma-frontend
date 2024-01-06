@@ -16,13 +16,13 @@
         <div use:tocCrawler={{mode:'generate'}} class="flex flex-col grow w-96 relative">
             {#each data.summaries as summary}
             <div class="card flex flex-col grow w-full relative variant-ghost-error">
-                <h2 class="mx-auto right-0 left-0 text-3xl underline pb-5">{summary?.title}</h2>
+                <h2 class="mx-auto right-0 left-0 text-3xl underline p-4 text-center">{summary?.title}</h2>
 
                 <div class="w-full flex flex-row mx-6 px-6 text-amber-300">
                     <div class="flex flex-col w-3/4">
-                    {#each summary?.description.split(':') as sentence}
+                    {#each summary?.description.split('/n') as sentence}
                 
-                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-40">{sentence}.</p>
+                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-40 pb-3">{sentence}</p>
                 
                     {/each}
                     </div>

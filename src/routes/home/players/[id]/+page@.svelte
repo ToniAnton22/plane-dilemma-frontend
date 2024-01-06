@@ -76,8 +76,8 @@
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
                 {#if data?.player?.description != undefined}
-                    {#each data?.player?.description.split('.') as sentence }
-                        <p>{sentence}.</p>
+                    {#each data?.player?.description.split('/n') as sentence }
+                        <p class="pl-3">{sentence}</p>
                     {/each}
                     <div class="md:hidden flex justify-center items-center align-center">
                         <div class="md:hidden {theme} w-[12.7rem] h-[12.7rem] rounded-full relative flex justify-center items-center align-center">
@@ -90,8 +90,8 @@
                 {/if}
             {:else if tabSet === 1}
                 {#if data?.player?.summary != undefined}
-                    {#each splitSummary.split('.') as sentence }
-                        <p>{sentence}.</p>
+                    {#each splitSummary.split('/n') as sentence }
+                        <p class="pl-3">{sentence}</p>
                     {/each}
                     {:else}
                         <p>Empty</p>

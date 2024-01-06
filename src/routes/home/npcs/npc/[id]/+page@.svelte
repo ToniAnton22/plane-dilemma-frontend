@@ -46,11 +46,13 @@
                         {data?.npc?.sex}
                         {data?.npc?.race}
                     {:else if tabSet === 1}
-                        {data?.npc?.info}
+                        {#each data?.npc?.info.split("/n") as sentence}
+                            <p>{sentence}</p>
+                        {/each}
                     {:else if tabSet === 2}
                     <p class="break-words">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam dicta laboriosam tempore placeat sapiente nam assumenda, eligendi facilis quaerat vitae. Cumque consectetur exercitationem doloremque cupiditate molestias iure sapiente cum obcaecati.
-                    
+                        
                     </p>
                         
                     {/if}
