@@ -38,7 +38,8 @@
 	}
 
 	function applyCLasses(town, filter){
-		let popupHtml = addFilterClasses(town)
+		console.log(town.image)
+		let popupHtml = addFilterClasses(town,town?.image)
 
 		let el = document.createElement("div")
 		if(town?.capital){

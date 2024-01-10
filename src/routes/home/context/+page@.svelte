@@ -10,12 +10,12 @@
     function filterContent(filter) {
         console.log(filter)
         if(!filter){
-            content = data?.context.trim()
+            content = data?.context
         }else{
             content = data?.context.filter((p) =>
             { 
                 return (p.title.toLowerCase().includes(filter.toLowerCase()) || p.info.toLowerCase().includes(filter.toLowerCase()))
-            }).trim()   
+            }) 
       }
       console.log(content)
     }
