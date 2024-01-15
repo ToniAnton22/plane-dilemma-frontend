@@ -3,7 +3,8 @@ import {DB_HOST} from "$env/static/private"
 /** @type {import('./$types').RequestHandler} */
 
 export async function GET({params}){
-  
+    
+    console.log("Resources are being fetched.")
     let response = await fetch(`${DB_HOST}players/byId/${params?.id}`)
 
     let data = await response.json()

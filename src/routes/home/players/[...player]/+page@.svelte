@@ -31,8 +31,8 @@
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  "
     }
     else if(data?.player?.name === "Fennex Stoutwings"){
-        theme="bg-gradient-to-t from-amber-200 via-orange-400 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden"
-        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-200 "
+        theme="bg-gradient-to-t from-amber-700 via-orange-700 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden"
+        textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-100 "
     }
     else if(data?.player?.name === "Bastion"){
         theme="bg-gradient-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900"

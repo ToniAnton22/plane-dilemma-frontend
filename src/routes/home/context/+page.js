@@ -1,8 +1,18 @@
+
+import {setItem, getItem} from "$lib/storage.js"
+
 export const load = (({fetch}) =>{
     const getContext = async () =>{
-        var res = await fetch("/api/getContext")
+    
+        let data = getItem('context')
+        if(!data){
+  
+            var res = await fetch("/api/getContext")
 
-        var data = res.json()
+            data =await res.json()
+            setItem('context',data)
+        }
+
 
         return data
     }

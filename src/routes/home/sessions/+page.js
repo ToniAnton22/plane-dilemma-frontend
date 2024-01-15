@@ -1,9 +1,15 @@
+import { getItem,setItem } from '$lib/storage.js';
 
 export const load= ({fetch}) =>{
     const fetchSummaries = async () =>{
-        const res = await fetch('/api/getSummary');
-        const summaries = await res.json()
+        let summaries = getItem('summaries')
+        if(!summaries){
+            console.log('Fetching from server')
+            const res = await fetch('/api/getSummary');
+            summaries = await res.json()
+            setItem('summaries',summaries)
         
+        }
         return summaries
     }
     

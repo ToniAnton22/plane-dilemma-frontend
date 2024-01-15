@@ -1,12 +1,20 @@
+import {setItem, getItem} from "$lib/storage.js"
+
 export const load = (({fetch}) =>{
     const fetchTowns = async () =>{
-        let response = await fetch("../api/getTowns")
+        let towns = getItem("towns")
+        
+        if(!towns){
+    
+            let response = await fetch("../api/getTowns")
+            
+            towns = await response.json()
 
-        let towns = await response.json()
-
-        return towns
-    } 
-
+            setItem('towns', towns)
+    
+        }
+       return towns
+    }
     return {
         towns:fetchTowns()
     }

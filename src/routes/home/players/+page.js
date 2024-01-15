@@ -1,7 +1,15 @@
+import { getItem,setItem } from '$lib/storage.js'
+
 export const load = ({fetch}) =>{
     const fetchPlayers = async() =>{
-        const res = await fetch('/api/getplayers')
-        const players = await res.json()
+        let players = getItem('players')
+        if(!players){
+            const res = await fetch('/api/getplayers')
+            players = await res.json()
+
+            setItem('players',players)
+        }
+   
         
         return players
     }

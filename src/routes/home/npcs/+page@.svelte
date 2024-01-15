@@ -7,7 +7,9 @@
     export let data;
     export let filter;
     let tableSimple;
-
+    function navigate(player){
+        goto('/player?detail='+encodeURIComponent(player) )
+    }
     let source = data.npcs
     const filterContent = () =>{
         if(!filter){

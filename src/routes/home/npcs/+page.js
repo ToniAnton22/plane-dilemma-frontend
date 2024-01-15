@@ -1,8 +1,13 @@
+import {setItem, getItem} from '$lib/storage.js'
 export const load= (({fetch}) =>{
     const fetchNpcs = async () =>{
-        const res = await fetch('/api/getnpcs');
-        const npcs = await res.json()
-        
+        let npcs = getItem('npcs')
+        if(!npcs){
+            const res = await fetch('/api/getnpcs');
+            npcs = await res.json()
+            
+            setItem('npcs',npcs)
+        }
         return npcs
     }
     

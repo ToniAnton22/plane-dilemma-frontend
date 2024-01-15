@@ -4,6 +4,7 @@ import {DB_HOST} from "$env/static/private"
 
 export async function GET({params}){
     
+    console.log("Resources are being fetched.")
     let response = await fetch(`${DB_HOST}npcs/byId/${params?.id}`)
 
     let data = await response.json()

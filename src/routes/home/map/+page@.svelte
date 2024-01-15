@@ -6,6 +6,7 @@
 	import {popupString} from "$lib/popup"
 	
 	export let data;
+	console.log(data)
 	let markers = []
 	let marker;
 

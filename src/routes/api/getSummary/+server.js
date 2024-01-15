@@ -3,7 +3,8 @@ import {DB_HOST} from "$env/static/private"
 
 /**  @type {import('./$types').RequestHandler} */
 export async function GET(){
-
+    
+    console.log("Resources are being fetched.")
     const data = await fetch(`${DB_HOST}summary`)
 
     const summaries = await data.json()
