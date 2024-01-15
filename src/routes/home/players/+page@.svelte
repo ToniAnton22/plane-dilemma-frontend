@@ -12,15 +12,19 @@
     </svg>
 </a>
 <div class="container flex w-full mx-auto my-auto h-3/4 align-center justify-start items-center mt-20 overflow-scroll">
+    <!-- svelte-ignore a11y-missing-attribute -->
     {#each data.players as player}
-    <button class="card relative sm:max-md:w-full h-5/6 w-96 transition ease-in-out duration-1000 delay-75 variant-ghost-primary hover:scale-100 hover:w-1/2 hover:h-full hover:bg-start hover:transform-10 hover:z-10 bg-cover bg-no-repeat bg-center" on:click={navigate(player)} style="background-image:url({player?.avatar})">
+  
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <a class="card relative sm:max-md:w-full h-5/6 w-96 transition ease-in-out duration-1000 delay-75 variant-ghost-primary hover:scale-100 hover:w-1/2 hover:h-full hover:bg-start hover:transform-10 hover:z-10 bg-cover bg-no-repeat bg-center" on:click={navigate(player)} style="background-image:url({player?.avatar})">
      
         <header class="card-header text-2xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-200 to-blue-300 font-bold" >{player?.name}</header>
         <footer class="card-footer bottom-0 my-auto absolute bg-clip-text bg-gradient-to-r 
          text-transparent from-cyan-200 to-red-200 font-bold">{player?.class}
         </footer>
 
-    </button>
+    </a>
     {/each}
 </div>
 
