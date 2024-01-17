@@ -6,7 +6,7 @@
 	import {popupString} from "$lib/popup"
 	
 	export let data;
-	console.log(data)
+
 	let markers = []
 	let marker;
 
@@ -17,7 +17,7 @@
     let map;
     export let mapContainer;
     let lng, lat, zoom;
-
+	console.log(data)
     lng = -51.378679;
     lat = -13.319458;
     zoom = 4;
@@ -117,7 +117,7 @@
 		
 	</div>
 	<div class="map-wrap">
-		<div class="map" bind:this={mapContainer} />
+		<div class="map" data-tap-disabled="true" bind:this={mapContainer} />
 	</div>
 </div>
 

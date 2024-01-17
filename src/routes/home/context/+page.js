@@ -5,7 +5,7 @@ export const load = (({fetch}) =>{
     const getContext = async () =>{
     
         let data = getItem('context')
-        if(!data){
+        if(!data || data?.message=="Internal Error"){
   
             var res = await fetch("/api/getContext")
 
