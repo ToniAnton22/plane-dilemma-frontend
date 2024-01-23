@@ -12,9 +12,10 @@ export const content = writable(initialValue)
 export const setItem = (key,value) =>{
     content.subscribe(() =>{
         if(browser){
-            sessionStorage.setItem(key,JSON.stringify(value))
+            return sessionStorage.setItem(key,JSON.stringify(value))
         }
     })
+    return 
 }
 
 export const getItem = (key) =>{
@@ -22,6 +23,6 @@ export const getItem = (key) =>{
         const item = sessionStorage?.getItem(key);
         return item ? JSON.parse(item) : null;
     }
-
+    return 
 }
 
