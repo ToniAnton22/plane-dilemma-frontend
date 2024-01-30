@@ -1,8 +1,34 @@
 <script>
+    import {onDestroy, onMount} from "svelte"
+    import {databaseLoading} from "$lib/loadingStore.js"
+	import LoadingScreen from "../LoadingScreen.svelte"
+    import {invalidateAll} from "$app/navigation"
+    import {browser} from "$app/environment"
+    export let data
+    $: currentPathName = browser && window.location.pathname || '/home'
+    $: $databaseLoading
+
+    const delay = ms => new Promise(res =>  setTimeout(checkDb,ms))
+    async function checkDb(){
+        console.log("In delay")
+        invalidateAll()
+    }
+    onMount(() =>{
+        if($databaseLoading == true ){
+            console.log("checking db")
+            delay(10000)
+            
+        }
+        
+    })
+    console.log(data)
 
 </script>
 
-<img class="w-full h-screen absolute bg-fixed bg-cover -z-10 brightness-75 blur-0" src="Ethereal_plane.jpg" alt="Ethereal Plane"/>
+<img class="w-full h-screen absolute bg-fixed bg-cover -z-20 brightness-75 blur-0" src="Ethereal_plane.jpg" alt="Ethereal Plane"/>
+{#if $databaseLoading == true}
+    <LoadingScreen/>
+{/if}
 <div class="w-full h-full">
     <div class="container mx-auto px-2">
         <h1 class="text-3xl uppercase py-10">Player Information! </h1>

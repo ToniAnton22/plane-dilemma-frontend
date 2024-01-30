@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
 import { writable } from "svelte/store";
 
+
 const defaultValue = 'summer';
 
 const initialValue = browser ? sessionStorage.getItem('theme') ?? defaultValue : defaultValue;
