@@ -1,17 +1,23 @@
 import {DB_HOST} from "$env/static/private"
 
+/** @type {import('./$types').RequestHandler} */
+export async function GET() {
+    async function dataFetch(retires = 5, delay =8000){
+        const data = await fetch(`${DB_HOST}summary`)
 
-/**  @type {import('./$types').RequestHandler} */
-export async function GET(){
+      if(data?.status == 502){
     
-    console.log("Resources are being fetched.")
-    const data = await fetch(`${DB_HOST}summary`)
+        await new Promise(resolve => setTimeout(resolve,delay))
+        return dataFetch(retires-1, delay)
+      }
 
-    const summaries = await data.json()
-    if(summaries == null){
-
-        return new Response({status:404})
+      const summaries = await data.json()
+  
+      if(summaries == undefined){
+          return new Response({status:404})
+      }
+      return new Response(JSON.stringify(summaries),{status:200})
     }
-
-    return new Response(JSON.stringify(summaries),{status:200})
-}
+    return await dataFetch()
+    
+};

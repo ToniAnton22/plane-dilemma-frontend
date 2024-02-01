@@ -3,15 +3,22 @@ import {DB_HOST} from "$env/static/private"
 /** @type {import('./$types').RequestHandler} */
 
 export async function GET({params}){
+    async function dataFetch(retires = 5, delay =8000){
+        let response = await fetch(`${DB_HOST}npcs/byId/${params?.id}`)
+      if(response?.status == 502){
     
-    console.log("Resources are being fetched.")
-    let response = await fetch(`${DB_HOST}npcs/byId/${params?.id}`)
+        await new Promise(resolve => setTimeout(resolve,delay))
+        return dataFetch(retires-1, delay)
+      }
 
-    let data = await response.json()
-
-    if(data == null){
-        return new Response.status(404) 
+      const npc = await response.json()
+  
+      if(npc == undefined){
+          return new Response({status:404})
+      }
+      return new Response(JSON.stringify(npc),{status:200})
     }
-
-    return new Response(JSON.stringify(data), {status:201})
+    return await dataFetch()
+    
 }
+

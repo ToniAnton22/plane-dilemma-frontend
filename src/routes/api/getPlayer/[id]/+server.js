@@ -8,7 +8,7 @@ export async function GET({params}){
     let response = await fetch(`${DB_HOST}players/byId/${params?.id}`)
 
     let data = await response.json()
-
+  
     if(data == null){
         return new Response.status(404) 
     }
