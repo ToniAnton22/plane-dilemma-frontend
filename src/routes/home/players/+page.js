@@ -4,7 +4,7 @@ export const load = ({fetch}) =>{
     const fetchPlayers = async() =>{
         let players = getItem('players')
       
-        if(!players || players?.message=="Internal Error"){
+        if(!players || players?.message=="Internal Error" || players?.errorType == "LambdaTimeout"){
 
        
             const res = await fetch('/api/getplayers')

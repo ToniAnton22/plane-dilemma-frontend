@@ -10,6 +10,10 @@ export const load= ({fetch}) =>{
             setItem('summaries',summaries)
         
         }
+        if(summaries?.errorType == "LambdaTimeout"){
+            setTimeout(() => fetchSummaries(),3000)
+        }
+
         return summaries
     }
     

@@ -13,6 +13,10 @@ export const load = (({fetch}) =>{
             setItem('towns', towns)
     
         }
+        if(towns?.errorType == "LambdaTimeout"){
+            setTimeout(() => fetchTowns(),3000)
+        }
+
        return towns
     }
     return {
