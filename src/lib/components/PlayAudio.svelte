@@ -14,26 +14,33 @@
         audio = new Audio()
     })
 
-$: if ($currentTrack && $currentTrack.url && audio ) {
-    if (audio) {
-    audio.pause();
+    if(audio && audio?.muted){
+        
     }
-    audio.src= $currentTrack.url
-    
-    if ($currentTrack.playing) {
-    audio.play();
+
+    $: if ($currentTrack && $currentTrack.url && audio ) {
+        if (audio) {
+        audio.pause();
+        }
+        audio.src= $currentTrack.url
+        
+        if ($currentTrack.playing) {
+        audio.play();
+        }
+    } else if (audio) {
+        audio.pause();
     }
-} else if (audio) {
-    audio.pause();
-}
+
+    $: if(audio){
+        audio.volume = $volume /100
+    }
 
 
-
-onDestroy(() =>{
-    if(audio){
-        audio.pause()
-    }
-})
+    onDestroy(() =>{
+        if(audio){
+            audio.pause()
+        }
+    })
 
 
 </script>
