@@ -5,10 +5,12 @@
 	import {fade} from 'svelte/transition'
 	import DrawerData from "$lib/components/DrawerData.svelte";
 	import Mist from "$lib/components/Mist.svelte";
+	import UnmuteModal from "$lib/components/UnmuteModal.svelte";
 	import {onMount} from "svelte"
 	import {audioData} from "$lib/data/audioData.js"
-	import {playTrack} from "$lib/helpers/setAudio.js"
+	import {playTrack,audioMuted} from "$lib/helpers/setAudio.js"
 	import {themeSong} from "$lib/themeSong.js"
+	import { getModalStore } from '@skeletonlabs/skeleton';
 	let visible = true 
 	const toggleVis = () =>{
 		if (visible){
@@ -17,13 +19,26 @@
 			visible=true
 		}
 	}
+	const modalComponent = {ref: UnmuteModal}
+	const modal = {
+		type:"component",
+		component: modalComponent,
+	}
+	const modalStore = getModalStore()
+	if(audioMuted){
+		modalStore.trigger(modal)
+	}
 
 	onMount(() =>{
+
 		playTrack(audioData[$themeSong].url)
+		
 	})
+
+
 	const drawerStore = getDrawerStore()
     const settings  = {id:'0'}
-
+	
 	drawerStore.set(settings)
 
 	

@@ -7,6 +7,7 @@
     import {themeSong} from "$lib/themeSong.js"
     import {onDestroy, onMount} from "svelte"
     import { currentTrack, stopTrack, playTrack , volume} from '$lib/helpers/setAudio.js';
+	import UnmuteModal from "./UnmuteModal.svelte";
 
 
 
@@ -43,7 +44,7 @@
         <Controls {isPlaying} on:playPause={playPauseAudio} />
 		
         <VolumeSlider bind:vol on:input={adjustVol} />	
-       
+        <UnmuteModal/>
     </div>
     
 </main>

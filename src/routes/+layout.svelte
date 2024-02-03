@@ -2,12 +2,11 @@
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 	import { initializeStores } from '@skeletonlabs/skeleton';
-    import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
+    import { Drawer, getDrawerStore, Modal,getModalStore } from '@skeletonlabs/skeleton';
 	import {navigating} from '$app/stores'
 	import {isLoading} from "$lib/loadingStore.js"
 	import {onMount} from "svelte"
-	import PlayAudio from "$lib/components/PlayAudio.svelte"
-
+	import PlayAudio from "$lib/components/PlayAudio.svelte"  
 	import DrawerData from "$lib/components/DrawerData.svelte"
 	import LoadingScreen from './LoadingScreen.svelte' 
 	import Mist from '$lib/components/Mist.svelte';
@@ -36,7 +35,7 @@
 	<DrawerData/>
 </Drawer>
 <PlayAudio/>
-
+<Modal/>
 
 <Mist/>
 <!-- App Shell -->

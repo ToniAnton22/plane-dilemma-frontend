@@ -11,3 +11,5 @@ export function stopTrack() {
 }
 
 export const volume = writable(10)
+
+export const audioMuted = writable(false)
