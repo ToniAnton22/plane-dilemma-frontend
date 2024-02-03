@@ -1,6 +1,19 @@
 <script>
-    import {TableOfContents, tocCrawler} from "@skeletonlabs/skeleton"
+    import {TableOfContents, tocCrawler,getDrawerStore} from "@skeletonlabs/skeleton"
     export let data;
+
+    const drawerStore = getDrawerStore()
+
+
+
+    $: { 
+        console.log("I change")
+        drawerStore.update(currentState =>{
+            return{...currentState, id:'1' || '0'}
+        })
+    }
+    
+   
 </script>
 <a href="/home" class="absolute bottom-0 right-0 w-12 h-12 m-5 z-40 hover:pointer">
     <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -9,25 +22,23 @@
 </a>
 <img src="/images/ThePlanesEdited.png" class="absolute bg-cover bg-scroll brightness-[0.25] opacity-80 w-screen h-screen" alt="Planes revisioned"/>
 <main class="bg-no-repeat bg-cover bg-fixed w-screen h-full">
-    <article class="flex flex-row gap-6 md:flex-row pt-9 relative">
-        <div class="sticky top-0 z-30 w-36 h-[50vh] variant-ghost-primary overflow-y-auto text-white">
-            <TableOfContents class="top-0 text-white" regionListItem="font-bold" regionList="text-white px-2"></TableOfContents>
-        </div>
+    <article class="flex flex-row gap-6 md:flex-row relative">
+ 
         <div use:tocCrawler={{mode:'generate'}} class="flex flex-col grow w-96 relative">
             {#each data.summaries as summary}
             <div class="card flex flex-col grow w-full relative variant-ghost-error">
                 <h2 class="mx-auto right-0 left-0 text-3xl underline p-4 text-center">{summary?.title}</h2>
 
-                <div class="w-full flex flex-row mx-6 px-6 text-amber-300">
+                <div class="w-full flex md:flex-row flex-col mx-6 px-6 text-amber-300">
                     <div class="flex flex-col w-3/4">
                     {#each summary?.description.split('/n') as sentence}
                 
-                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-40 pb-3">{sentence}</p>
+                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-20 pb-3">{sentence}</p>
                 
                     {/each}
                     </div>
                     {#if summary?.link.startsWith("https")}
-                    <a class="card text-center invisible flex flex-col shrink w-1/4 md:visible p-2 scale-75 hover:scale-100 variant-glass-primary h-fit text-white font-bold hover:bg-cyan-200 hover:text-black rounded-full" href='{summary?.link}'>
+                    <a class="card text-center flex flex-col shrink md:w-1/4 w-full md:visible p-2 scale-75 hover:scale-100 variant-glass-primary h-fit text-white font-bold hover:bg-cyan-200 hover:text-black rounded-full" href='{summary?.link}'>
                         Youtube video:
                         <span class="font-bold" >
                             {summary?.title}

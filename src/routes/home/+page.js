@@ -1,5 +1,7 @@
 import {databaseLoading,sessionStorageInitialized} from "$lib/loadingStore.js"
+
 import {get} from 'svelte/store'
+
 export const load = ({fetch}) =>{
     async function checkDatabaseResponsiveness() {
         try {
@@ -26,9 +28,9 @@ export const load = ({fetch}) =>{
           }
           return false
         } catch (error) {
-          console.error('Database responsiveness check failed:', error);
+          console.error('Database responsiveness check failed:', error,'Will attempt fetching again.');
           databaseLoading.set(true)
-          return true
+          checkDatabaseResponsiveness()
         }
     }
     return{

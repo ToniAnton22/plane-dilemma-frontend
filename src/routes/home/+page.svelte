@@ -7,6 +7,8 @@
     import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
     import DrawerData from "$lib/components/DrawerData.svelte"
     export let data
+
+   
     $: currentPathName = browser && window.location.pathname || '/home'
     $: $databaseLoading
 
@@ -25,9 +27,11 @@
     })
     console.log(data)
     const drawerStore = getDrawerStore()
-    const settings  = {id:'0'}
-
-	drawerStore.set(settings)
+    $: {
+    drawerStore.update(currentState =>{
+        return {...currentState, id: '0' || '0'}
+    })
+}
 	
 
 </script>

@@ -25,7 +25,7 @@
 		component: modalComponent,
 	}
 	const modalStore = getModalStore()
-	if(audioMuted){
+	if($audioMuted){
 		modalStore.trigger(modal)
 	}
 
