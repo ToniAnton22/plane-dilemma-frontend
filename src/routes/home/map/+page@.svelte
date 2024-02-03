@@ -4,7 +4,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import {addFilterClasses} from "$lib/addFilterClasses"
 	import {popupString} from "$lib/popup"
-	
+	import {goto, afterNavigate} from "$app/navigation"
 	export let data;
 
 	let markers = []
@@ -31,6 +31,11 @@
 			element.style.display= "none"
 		}
 	})
+
+	$: if(!data){
+		
+
+	}
     // Your Mapbox access token
     function updateData() {
     	zoom = map.getZoom();

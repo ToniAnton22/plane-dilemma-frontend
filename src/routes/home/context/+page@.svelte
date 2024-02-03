@@ -4,11 +4,12 @@
      let filter
 
      const drawerStore = getDrawerStore();
-     
+    
+
     let content = data?.context
     
     function filterContent(filter) {
-        console.log(filter)
+        
         if(!filter){
             content = data?.context
         }else{
@@ -17,8 +18,9 @@
                 return (p.title.toLowerCase().includes(filter.toLowerCase()) || p.info.toLowerCase().includes(filter.toLowerCase()))
             }) 
       }
-      console.log(content)
+      
     }
+
     
   </script>
  
@@ -30,7 +32,7 @@
 <img src="/images/yonal-writing.png" class="absolute w-full h-full bg-cover bg-scroll -z-10 brightness-50" alt="Yonal writing"/>
 <div class="flex-col w-screen h-fit variant-ghost-primary p-4">
     <div class="flex flex-initial">
-        <button class="flex flex-initial flex-col variant-ghost-surface p-5 shadow-md gap-y-3.5 items-center justify-center hover:bg-green-200 hover:text-stone-600"on:click={() => drawerStore.open()}>Select content</button>
+        <button class="flex flex-initial flex-col variant-ghost-surface p-5 shadow-md gap-y-3.5 items-center justify-center hover:bg-green-200 hover:text-stone-600"on:click={() => drawerStore.open(drawerStore.id)}>Select content</button>
         <input class="flex-1 bg-gradient-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
     </div>
     
@@ -56,4 +58,5 @@
     p{
 	text-shadow: 2px 2px black;
     }
+   
  </style>

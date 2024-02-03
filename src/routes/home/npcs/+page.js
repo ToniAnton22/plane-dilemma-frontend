@@ -1,17 +1,20 @@
 import {setItem, getItem} from '$lib/storage.js'
+import { redirect } from '@sveltejs/kit'
 export const load= (({fetch}) =>{
     const fetchNpcs = async () =>{
         let npcs = getItem('npcs')
         if(!npcs || npcs?.message=="Internal Error" || npcs?.errorType == "LambdaTimeout"){
             const res = await fetch('/api/getnpcs');
             npcs = await res.json()
-            
+            if(!npcs){
+                throw redirect(307,'/home')
+            }
             setItem('npcs',npcs)
         }
         if(npcs?.errorType == "LambdaTimeout"){
             setTimeout(() => fetchNpcs(),3000)
         }
-
+        
         return npcs
 
     }

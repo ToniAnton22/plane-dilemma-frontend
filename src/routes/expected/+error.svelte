@@ -1,0 +1,1 @@
+<h1>Database is still offline, please hold on a few seconds.</h1>

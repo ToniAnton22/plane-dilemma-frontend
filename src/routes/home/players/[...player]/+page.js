@@ -4,7 +4,6 @@ export const load = ({url}) =>{
         
         let player = await JSON.parse(url.searchParams.get('detail'))
 
-        
         return player
     }
 

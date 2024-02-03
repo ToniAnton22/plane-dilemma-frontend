@@ -1,24 +1,22 @@
 <script>
     import {TabGroup,Tab} from "@skeletonlabs/skeleton"
-    import Controls from "$lib/components/Controls.svelte";
-    import VolumeSlider from "$lib/components/VolumeSlider.svelte"
-    import PlayList from "$lib/components/VolumeSlider.svelte"
-    import { audioData } from "$lib/data/audioData.js";
-   
-    
 
+    import { audioData } from "$lib/data/audioData.js";
+
+    import {themeSong} from "$lib/themeSong.js"
+	import { onDestroy, onMount } from "svelte";
+   
+    import {playTrack, stopTrack} from '$lib/helpers/setAudio.js'
+	import DrawerData from "$lib/components/DrawerData.svelte";
+  
+    
     export let data;
     export let tabSet=0;
     export let theme;
-    export let themeSong=0;
     export let textTheme;
     export let splitSummary = data?.player?.summary;
-
-    export let vol =50;
-    console.log(audioData[themeSong].url)
    
-    let audioFile =new Audio(audioData[themeSong].url)
-
+  
     const themeMap = new Map()
     themeMap.set(
         "Vanelis",{
@@ -26,93 +24,56 @@
         textTheme:"font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-blue-200",
     })  
 
-    let isPlaying = true
-
-
-    const loadTrack = () =>{
-        audioFile = new Audio(audioData[themeSong].url)
-        audioFile.play()
-    }
-    
-    if(audioFile.ended){
-        loadTrack()
-        audioFile.play()
-    }
-    const adjustVol = () => audioFile.volume = vol / 100
-
-    const playPauseAudio = () => {
-		if (audioFile.paused) {
-
-			audioFile.play();
-			isPlaying = true;
-		} else {
-	
-			audioFile.pause();
-			isPlaying = false;
-		}	 	
-	}
-
-    const handleTrack = (e) => {
-		if (!isPlaying) {
-			trackIndex = Number(e.target.dataset.trackId);
-			loadTrack();
-			playPauseAudio(); // auto play
-		} else {
-			isPlaying = false;
-			audioFile.pause();
-            
-			trackIndex = Number(e.target.dataset.trackId);
-			loadTrack();
-			playPauseAudio(); // auto play
-		}
-	}
-
+ 
     if(data?.player?.name === "Vanelis"){
         theme = "bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-sky-900"
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 "
-        themeSong=2
-        loadTrack()
+        themeSong.set(4)
     }
     else if(data?.player?.name === "Ng`ombe Radolack"){
         theme="bg-gradient-to-tr from-stone-900 via-orange-950 to-yellow-800 w-full h-full md:border-l-4 md:border-stone-900"
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-200 to-stone-100 "
-        
+        themeSong.set(5)
     }
     else if(data?.player?.name === "Jamond Carter"){
         theme="bg-gradient-to-br from-indigo-900 via-rose-950 to-blue-800 w-full h-full md:border-l-4 md:border-violet-400"
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-blue-400 "
-        themeSong=1
-        loadTrack()
+        themeSong.set(3)
+      
     }
     else if(data?.player?.name === "Kalahari"){
         theme=`bg-gradient-to-b from-gray-500 via-rose-100 to-slate-800 w-full h-full md:border-l-4 md:border-gray-400`
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  "
+        themeSong.set(6)
     }
     else if(data?.player?.name === "Fennex Stoutwings"){
         theme="bg-gradient-to-t from-amber-700 via-orange-700 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden"
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-100 "
+        themeSong.set(7)
     }
     else if(data?.player?.name === "Bastion"){
         theme="bg-gradient-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900"
         textTheme="font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-neutral-100 "
-        themeSong=0
-        
-        loadTrack()
+        themeSong.set(2)
     }
 
+    onMount(() =>{
+        
+    })
+    onDestroy(() =>{
+        stopTrack()
+        themeSong.set(0)
+    })
+
 </script>
-<a href="/home/players" class="w-6 h-6 md:w-12 md:h-12 m-2 md:m-6 hover:pointer z-40 absolute bottom-0 md:top-0" on:click={handleTrack}>
+<a href="/home/players" class="w-6 h-6 md:w-12 md:h-12 m-2 md:m-6 hover:pointer z-40 absolute bottom-0 md:top-0">
     <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </a>
 <header class="absolute md:bottom-1 md:left-6 right-3 w-fit z-10 ">
     <h1 class='{textTheme} uppercase'>{data?.player?.name}</h1>
-    <Controls {isPlaying} on:playPause={playPauseAudio} />
-		
-	<VolumeSlider bind:vol on:input={adjustVol} />	
-    <PlayList on:click={handleTrack}/>
-
+    <DrawerData/>
 </header>
 <main class="h-full flex flex-col md:flex-row relative overflow-hidden">
    <div class="hidden md:block w-full md:w-1/2 absolute md:fixed bg-no-repeat md:bg-fixed object-scale-down md:bg-top md:h-full overflow-hidden avatar-animation" style="background-image: url({data?.player?.avatar})">
