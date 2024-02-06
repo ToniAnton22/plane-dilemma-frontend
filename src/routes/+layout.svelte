@@ -46,8 +46,8 @@
 		<!-- App Bar -->
 	</svelte:fragment>
 	<div class="absolute w-full bottom-0 inset-x-0 z-30">
-		<button on:click={drawerStore.open} class="flex w-16 h-16 variant-glass-tertiary">
-			<svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" viewBox="0 0 24 24" fill="none">
+		<button on:click={drawerStore.open} class="flex w-[5vh] h-[5vh] variant-glass-tertiary">
+			<svg xmlns="http://www.w3.org/2000/svg" width="5vh" height="5vh" viewBox="0 0 24 24" fill="none">
 				<path d="M8 16L12 20M12 20L16 16M12 20V8M4 4H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 		</button>
