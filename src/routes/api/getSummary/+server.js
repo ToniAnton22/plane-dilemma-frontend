@@ -1,23 +1,48 @@
-import {DB_HOST} from "$env/static/private"
+import { DB_HOST } from "$env/static/private";
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
-    async function dataFetch(retires = 5, delay =8000){
-        const data = await fetch(`${DB_HOST}summary`)
+    // Recursive function to attempt fetching data with retries
+    async function dataFetch(retries = 5, delay = 8000) {
+        try {
+            const response = await fetch(`${DB_HOST}summary`);
 
-      if(data?.status == 502){
-    
-        await new Promise(resolve => setTimeout(resolve,delay))
-        return dataFetch(retires-1, delay)
-      }
+            // Check if the database returned a "502 Bad Gateway" status
+            if (response.status === 502) {
+                // If retries are exhausted, return a 502 response
+                if (retries <= 0) {
+                    return new Response("Database not responsive", { status: 502 });
+                }
 
-      const summaries = await data.json()
-  
-      if(summaries == undefined){
-          return new Response({status:404})
-      }
-      return new Response(JSON.stringify(summaries),{status:200})
+                // Wait for the specified delay before retrying
+                await new Promise(resolve => setTimeout(resolve, delay));
+                
+                // Recursively call dataFetch with decremented retries
+                return dataFetch(retries - 1, delay);
+            }
+
+            // Attempt to parse the JSON response
+            const summaries = await response.json();
+
+            // Handle undefined or empty responses
+            if (!summaries) {
+                return new Response("No summaries found", { status: 404 });
+            }
+
+            // Successfully retrieved and parsed summaries data
+            return new Response(JSON.stringify(summaries), {
+                status: 200,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        } catch (error) {
+            // Handle fetch errors (e.g., network issues, invalid DB_HOST)
+            console.error("Fetch error:", error);
+            return new Response("Error fetching summaries data", { status: 500 });
+        }
     }
-    return await dataFetch()
-    
-};
+
+    // Initiate the data fetch with retries
+    return await dataFetch();
+}

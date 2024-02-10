@@ -73,7 +73,6 @@
 </a>
 <header class="absolute md:bottom-1 md:left-6 right-3 w-fit z-10 ">
     <h1 class='{textTheme} uppercase'>{data?.player?.name}</h1>
-    <DrawerData/>
 </header>
 <main class="h-full flex flex-col md:flex-row relative overflow-hidden">
    <div class="hidden md:block w-full md:w-1/2 absolute md:fixed bg-no-repeat md:bg-fixed object-scale-down md:bg-top md:h-full overflow-hidden avatar-animation" style="background-image: url({data?.player?.avatar})">

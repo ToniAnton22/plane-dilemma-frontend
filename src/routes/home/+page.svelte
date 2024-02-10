@@ -46,7 +46,7 @@
     <div class="flex flex-col xl:flex-row w-full h-full items-center align-center border-l-4 border-orange-600 space-y-12">
         <div class="flex flex-col w-full h-full space-y-12 justify-center xl:justify-start">
             
-            <a class="flex items-center w-3/4 h-24 my-4 xl:my-0 mx-4 rounded-full transition ease-in-out delay-75 bg-zinc-700 opacity-80 hover:scale-110 hover:bg-red-500 duration-300 bg-contain bg-no-repeat border-2 border-l-0 border-stone-800 hover:border-stone-400" 
+            <a class="flex items-center w-3/4 h-24 my-4 xl:my-0 mx-4 rounded-full transition ease-in-out delay-75 bg-zinc-700 opacity-80 hover:scale-110 hover:bg-indigo-400 duration-300 bg-contain bg-no-repeat border-2 border-l-0 border-stone-800 hover:border-stone-400" 
             href="/home/players">
                 <img src="/images/players/card-image.png" class="w-32 h-32 object-cover rounded-full justify-center border-4 border-stone-500" alt="Players">
                 <div class="w-full">
