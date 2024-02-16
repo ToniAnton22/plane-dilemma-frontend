@@ -1,129 +1,98 @@
-<!-- Map.svelte -->
 <script>
-    import mapboxgl, {Map} from 'mapbox-gl'
-	import { onMount, onDestroy } from 'svelte';
-	import {addFilterClasses} from "$lib/addFilterClasses"
-	import {popupString} from "$lib/popup"
-	import {goto, afterNavigate} from "$app/navigation"
-	export let data;
+    import mapboxgl, { Map } from 'mapbox-gl';
+    import { onMount, onDestroy } from 'svelte';
+    import { addFilterClasses } from "$lib/addFilterClasses";
+    import { goto, afterNavigate } from "$app/navigation";
+    import {getDrawerStore} from "@skeletonlabs/skeleton"
+    export let data; // Assuming this is the prop received from load
 
-	let markers = []
-	let marker;
-
-	let showMarkers= true;
-    const url = import.meta.env.VITE_URL
-    const token = import.meta.env.VITE_PUBLIC_TOKEN
-	const terrain = import.meta.env.MAPBOX_TERRAIN
+    const drawerStore = getDrawerStore()
     let map;
     export let mapContainer;
-    let lng, lat, zoom;
-	console.log(data)
-    lng = -51.378679;
-    lat = -13.319458;
-    zoom = 4;
+    let lng = -51.378679, lat = -13.319458, zoom = 4;
+    let markers = [];
+	let token = import.meta.env.VITE_PUBLIC_TOKEN
+    // Reactive statement to handle towns updates
 
-	$: markers.forEach(marker =>{
-		const element = marker.getElement();
-		
-		if(showMarkers){
-			element.style.display= "block"
-		}else{
-			element.style.display= "none"
+    const towns = data?.towns
+    function updateMarkers() {
+        // Clear existing markers first
+        markers.forEach(marker => marker.remove());
+        markers = [];
+
+        // Add new markers
+        towns.forEach(town => applyClasses(town));
+    }
+
+    function applyClasses(town) {
+        
+		let popupHtml = addFilterClasses(town, town?.image);
+
+        let el = document.createElement(`div`);
+        el.setAttribute("id",`town${town?.id}`)
+		let capital = town?.capital?.trim()
+		let marker;
+        console.log(town?.image)
+		if(capital){
+			marker = new mapboxgl.Marker({ element: el })
+            .setLngLat([town?.longitude, town?.latitude])
+            .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
+            .addClassName('capital')
+            .addTo(map);
 		}
-	})
+		if(town?.port && !town?.capital){
+			marker = new mapboxgl.Marker({ element: el })
+            .setLngLat([town?.longitude, town?.latitude])
+            .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
+			.addClassName('port')
+            .addTo(map);
 
-	$: if(!data){
-		
-
-	}
-    // Your Mapbox access token
-    function updateData() {
-    	zoom = map.getZoom();
-    	lng = map.getCenter().lng;
-    	lat = map.getCenter().lat;
-	}
-
-	function applyCLasses(town, filter){
-		console.log(town.image)
-		let popupHtml = addFilterClasses(town,town?.image)
-
-		let el = document.createElement("div")
-		if(town?.capital){
-			marker = new mapboxgl.Marker({element:el})
-			.setLngLat([town?.longitude, town?.latitude])
-			.addClassName("capital")
-			.setPopup(new mapboxgl.Popup().setHTML(`${popupHtml}`))
-			.addTo(map)
-
-			markers.push(marker)
-			return
 		}
-		if(town?.port){
-			marker = new mapboxgl.Marker({element:el})
-			.setLngLat([town?.longitude, town?.latitude])
-			.addClassName("port")
-			.setPopup(new mapboxgl.Popup().setHTML(`${popupHtml}`))
-			.addTo(map)
-			markers.push(marker)
-			return
+		if(!town?.port && !town?.capital){
+			marker = new mapboxgl.Marker({ element: el })
+            .setLngLat([town?.longitude, town?.latitude])
+            .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
+			.addClassName('town')
+            .addTo(map);
 		}
-	
-		marker = new mapboxgl.Marker({element:el})
-		.setLngLat([town?.longitude, town?.latitude])
-		.addClassName("town")
-		.setPopup(new mapboxgl.Popup().setHTML(`${popupHtml}`))
-		.addTo(map)
 
-		markers.push(marker)
-	}
+        marker.getElement().addEventListener('click',(e) => {
+            console.log(town) 
+            console.log(e)
+            drawerStore.update(currentState =>{
+                console.log(town?.image)
+                return {...currentState, id: '2', town}
+            })
+            })
+ 
+        return markers.push(marker);
+    }
 
-	onMount(async() => {
-		const initialState = { lng: lng, lat: lat, zoom: zoom };
-		map = new Map({
-			container: mapContainer,
+    onMount(() => {
+        mapboxgl.accessToken = import.meta.env.VITE_PUBLIC_TOKEN;
+        map = new Map({
+            container: mapContainer,
 			accessToken: token,
-			style: `mapbox://styles/tonianton22/clpyc1via01jg01qtemq9c4ao`,
-			center: [initialState.lng, initialState.lat],
-			zoom: initialState.zoom,
-			refreshExpiredTiles:false,
-		});
-		map.on('move', () => {
-			updateData();
-		})
-		map.on("load", async () =>{
-			data?.towns?.forEach(town =>{
-			
-			let filters = [{
-				capital:town?.capital,
-				shanty:town?.shanty_Town,
-				port:town?.port,
-				icon:town?.icon
-			}]
-
-			applyCLasses(town,filters)
+            style: `mapbox://styles/tonianton22/clpyc1via01jg01qtemq9c4ao`,
+            center: [lng, lat],
+            zoom: zoom,
+            refreshExpiredTiles: false,
+        });
+        updateMarkers()
+    });
+	if(map){
 	
-		});
-
-		markers = markers
-		})
-	});
-	onDestroy(()=>{
-		if (map){
-			map.remove()
-		}
-	})
+	}
+    onDestroy(() => {
+        if (map) map.remove();
+    });
 </script>
 
 <div>
-	<div class="sidebar">
-		Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(
-			2
-		)}
-		
-	</div>
-	<div class="map-wrap">
-		<div class="map" data-tap-disabled="true" bind:this={mapContainer} />
-	</div>
+    <div class="sidebar">Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom: {zoom.toFixed(2)}</div>
+    <div class="map-wrap">
+        <div class="map" bind:this={mapContainer} />
+    </div>
 </div>
 
 <a href="/home" class="absolute w-12 h-12 m-6 pt-2 hover:pointer">

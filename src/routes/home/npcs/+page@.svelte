@@ -1,57 +1,25 @@
 <script>
-	import { Paginator, tableMapperValues } from "@skeletonlabs/skeleton";
-    import {Table} from "@skeletonlabs/skeleton"
-    import {goto} from "$app/navigation"
-    import {tableSourceMapper} from "@skeletonlabs/skeleton"
-
+    import NpcsView from "$lib/components/NpcsView.svelte"
     export let data;
     export let filter;
-    let tableSimple;
-    function navigate(player){
-        goto('/player?detail='+encodeURIComponent(player) )
-    }
+
     let source = data.npcs
     const filterContent = () =>{
         if(!filter){
-            console.log("I am here")
             source = data.npcs
-            tableSimple = {
-                head:['Sex',"Name","Description","Current Location"],
-                body: tableMapperValues(source,['sex',"name","description","location"]),
-                meta: tableMapperValues(source,['id'])
-            }
             return
         }
         source = data?.npcs.filter((p) =>{
             return p.name.toLowerCase().includes(filter.toLowerCase())
         })
-        tableSimple = {
-        head:['Sex',"Name","Description","Current Location"],
-        body: tableMapperValues(source,['sex',"name","description","location"]),
-        meta: tableMapperValues(source,['id'])
-    }
     }
     let paginationSettings ={
         page:0,
-        limit:6,
+        limit:4,
         size:source.length,
         amounts:5
     }
-    let paginatedSource = source.slice(
-        paginationSettings.page * paginationSettings.limit,
-        paginationSettings.page * paginationSettings.limit + paginationSettings.limit
-    )
-    
-    tableSimple = {
-        head:['Sex',"Name","Description","Current Location"],
-        body: tableMapperValues(source,['sex',"name","description","location"]),
-        meta: tableMapperValues(source,['id'])
-    }
 
-    const onClickTable = ({id})=>{
-        const ref = document.referrer
-        goto(ref.length > 0 ? ref : `/home/npcs/npc/${id}`)
-    }
 
 </script>
 <a href="/home" class="absolute w-12 h-12 m-6 pt-2 hover:pointer">
@@ -60,22 +28,9 @@
     </svg>
 </a>
 <div class="container flex-col mx-auto mt-40">
-    <input class="flex-1 bg-gradient-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600 p-2 my-4" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
-
-    <div class="table-container text-shadow text-zinc-300">
-        <!-- Native Table Element -->
-        
-        <Table class="table table-hover" source={tableSimple} interactive={true} on:selected={(e)=>onClickTable({id:e.detail[0]})} />
-   
-        <Paginator
-        bind:settings={paginationSettings}
-        showFirstLastButtons="{true}"
-        showPreviousNextButtons="{false}"
-        class="flex-initial"
-        />
-   
-
-    </div>
+    <h1 class="text-2xl">Search for the NPC</h1>
+    <input class="flex-1 bg-gradient-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600 p-2 my-4 w-full" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
+    <NpcsView {source} {paginationSettings}/>
 
 </div>
 <div class="">
@@ -85,5 +40,8 @@
 <style lang="postcss">
     .text-shadow{
         text-shadow: 2px 2px 5px black;
+    }
+    h1{
+        text-shadow: 2px 3px 2px black;
     }
 </style>

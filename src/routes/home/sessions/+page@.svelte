@@ -24,12 +24,12 @@
 <main class="bg-no-repeat bg-cover bg-fixed w-screen h-full">
     <article class="flex flex-row gap-6 md:flex-row relative">
  
-        <div use:tocCrawler={{mode:'generate'}} class="flex flex-col grow w-96 relative">
+        <div use:tocCrawler={{mode:'generate'}} class="flex flex-col grow w-full relative">
             {#each data.summaries as summary}
             <div class="card flex flex-col grow w-full relative variant-ghost-error">
                 <h2 class="mx-auto right-0 left-0 text-3xl underline p-4 text-center">{summary?.title}</h2>
 
-                <div class="w-full flex md:flex-row flex-col mx-6 px-6 text-amber-300">
+                <div class="w-full flex flex-col mx-6 px-6 text-amber-300 items-center ">
                     <div class="flex flex-col w-3/4">
                     {#each summary?.description.split('/n') as sentence}
                 

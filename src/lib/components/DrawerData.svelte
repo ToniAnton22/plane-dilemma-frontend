@@ -34,12 +34,7 @@
 
 
 
-<main class="grid w-full h-full align-center">
-    <button class="w-6 h-6 md:w-12 md:h-12 m-2 md:m-6 hover:pointer z-40 top-0 right-0" on:click={drawerStore.close}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-        </svg>  
-    </button>
+<main class="absolute right-0 inset-y-[31rem] align-center z-40">
     <div class="self-end my-4 p-4 mx-auto">
         <Controls {isPlaying} on:playPause={playPauseAudio} />
 		

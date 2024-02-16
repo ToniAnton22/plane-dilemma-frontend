@@ -4,7 +4,7 @@ import { writable } from "svelte/store";
 
 const defaultValue = 'summer';
 
-const initialValue = browser ? sessionStorage.getItem('theme') ?? defaultValue : defaultValue;
+const initialValue = browser ? sessionStorage.getItem('sessionStorageInitialized') ?? defaultValue : defaultValue;
 
 
 export const content = writable(initialValue)

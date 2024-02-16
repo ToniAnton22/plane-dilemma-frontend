@@ -15,7 +15,7 @@ export const load = (({fetch}) =>{
         if(towns?.errorType == "LambdaTimeout"){
             setTimeout(() => fetchTowns(),3000)
         }
-
+        console.log(towns[0]?.image)
        return towns
     }
     return {
