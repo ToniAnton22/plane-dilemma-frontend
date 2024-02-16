@@ -33,7 +33,13 @@
         </div>
         <div class="relative z-[16]">
             <h1>Related NPCs to the town</h1>
-            <NpcsView {paginationSettings} {data}/>
+            {#if data || source}
+                <NpcsView {paginationSettings} {data}/>    
+            {/if}
+            {#if !data || !source}
+                <h1>No npc related to this town has been discovered</h1>
+            {/if}
+            
         </div>
     {/if}
 </div>
