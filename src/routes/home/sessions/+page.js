@@ -3,7 +3,7 @@ import { getItem,setItem } from '$lib/storage.js';
 export const load= ({fetch}) =>{
     const fetchSummaries = async () =>{
         let summaries = getItem('summaries')
-        if(!summaries || summaries?.message=="Internal Error"){
+        if(!summaries || summaries?.message=="Internal Error" || summaries?.errorType == "LambdaTimeout"){
             console.log('Fetching from server')
             const res = await fetch('/api/getSummary');
             summaries = await res.json()

@@ -4,19 +4,19 @@
 	import { onMount } from "svelte";
     export let details;
     console.log(details)
-    export let source;
-    let data = [];
-    if(!source){
-        source = getItem('npcs')
+    export let data;
+    let source = [];
+    if(!data){
+        data = getItem('npcs')
     }
     
-    console.log(source)
-    $: if(data){ 
-        data = source.filter(npc => npc.location.includes("Yua`san"));
+    console.log(data)
+    $: if(source){ 
+        source = data.filter(npc => npc.location.includes("Yua`san"));
         paginationSettings ={
         page:0,
         limit:2,
-        size:data?.length,
+        size:source?.length,
         amounts:5
     }
     }
@@ -33,10 +33,10 @@
         </div>
         <div class="relative z-[16]">
             <h1>Related NPCs to the town</h1>
-            {#if data || source}
-                <NpcsView {paginationSettings} {data}/>    
+            {#if source}
+                <NpcsView {paginationSettings} {source}/>    
             {/if}
-            {#if !data || !source}
+            {#if !source}
                 <h1>No npc related to this town has been discovered</h1>
             {/if}
             

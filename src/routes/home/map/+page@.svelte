@@ -12,7 +12,7 @@
     let lng = -51.378679, lat = -13.319458, zoom = 4;
     let markers = [];
 	let token = import.meta.env.VITE_PUBLIC_TOKEN
-    let mapStyle = import.meta.env.MAP_STYLE
+    let mapStyle = import.meta.env.VITE_MAP_STYLE
     // Reactive statement to handle towns updates
 
     const towns = data?.towns

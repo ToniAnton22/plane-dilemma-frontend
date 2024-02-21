@@ -1,13 +1,14 @@
 <script>
     import {Paginator} from "@skeletonlabs/skeleton"
   
-    export let data;
+    export let source;
     export let mapped;
     if(mapped){
 
     }
+    console.log(source)
     export let paginationSettings;
-    $: paginatedSource = data.slice(
+    $: paginatedSource = source.slice(
         paginationSettings.page * paginationSettings.limit,
         paginationSettings.page * paginationSettings.limit + paginationSettings.limit
     )
