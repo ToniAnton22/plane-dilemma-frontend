@@ -12,6 +12,7 @@
     let lng = -51.378679, lat = -13.319458, zoom = 4;
     let markers = [];
 	let token = import.meta.env.VITE_PUBLIC_TOKEN
+    let mapStyle = import.meta.env.MAP_STYLE
     // Reactive statement to handle towns updates
 
     const towns = data?.towns
@@ -73,7 +74,7 @@
         map = new Map({
             container: mapContainer,
 			accessToken: token,
-            style: `mapbox://styles/tonianton22/clpyc1via01jg01qtemq9c4ao`,
+            style: mapStyle,
             center: [lng, lat],
             zoom: zoom,
             refreshExpiredTiles: false,
