@@ -4,7 +4,7 @@ import {DB_HOST} from "$env/static/private"
 export async function GET() {
     async function dataFetch(retires = 5, delay =8000){
         const data = await fetch(`${DB_HOST}npcs`)
-
+        console.log("I arrive here " + data.status)
       if(data?.status == 502){
     
         await new Promise(resolve => setTimeout(resolve,delay))

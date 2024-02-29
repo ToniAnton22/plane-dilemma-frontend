@@ -11,6 +11,7 @@
 	import {playTrack,audioMuted} from "$lib/helpers/setAudio.js"
 	import {themeSong} from "$lib/themeSong.js"
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	export let data
 	let visible = true 
 	const toggleVis = () =>{
 		if (visible){
@@ -50,7 +51,7 @@ brightness-[0.6] avatar-animation" style="background-image: url('/images/plane-d
 </div>
 
 <div class="h-full mx-0 p-0 flex justify-center items-center w-full" >
-
+	{#if data.open}
 	<div class="absolute space-y-10 text-center flex flex-col items-center z-35">
 		<h2 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase ">Welcome to Plane Dilemma</h2>
 		<a class="btn bg-gradient-to-r from-slate-400 to-indigo-300" href="/home">Explore</a>
@@ -63,7 +64,7 @@ brightness-[0.6] avatar-animation" style="background-image: url('/images/plane-d
 			</div>
 		</div>
 	{:then} 
-	
+
 	{/await}
 	{#if visible}
 		<div out:fade={{delay:4000, duration:3000}} class="absolute w-screen h-screen overflow-hidden hide-scrollbar bg-black z-20 transition-opacity">
@@ -73,8 +74,10 @@ brightness-[0.6] avatar-animation" style="background-image: url('/images/plane-d
 			{toggleVis()}
 		</div>		
 	{/if}
-	
 
+
+{/if}
+	
 
 </div>
 

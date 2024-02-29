@@ -3,17 +3,19 @@ import { DB_HOST } from "$env/static/private";
 // Define the GET request handler
 export async function GET() {
     // Recursive function to attempt fetching data with retries
-    async function dataFetch(retries = 5, delay = 8000) {
+    async function dataFetch(retries = 5, delay = 5000) {
         try {
             const response = await fetch(`${DB_HOST}players`);
-
+           
+            
             // Check if the database returned a "502 Bad Gateway" status
-            if (response.status === 502) {
+            if (response.status == 502) {
                 // If retries are exhausted, return a 502 response
                 if (retries <= 0) {
+             
                     return new Response("Database not responsive", { status: 502 });
                 }
-
+                
                 // Wait for the specified delay before retrying
                 await new Promise(resolve => setTimeout(resolve, delay));
                 
@@ -30,6 +32,7 @@ export async function GET() {
             }
 
             // Successfully retrieved and parsed players data
+      
             return new Response(JSON.stringify(players), {
                 status: 200,
                 headers: {
@@ -38,6 +41,7 @@ export async function GET() {
             });
         } catch (error) {
             // Handle fetch errors (e.g., network issues, invalid DB_HOST)
+
             console.error("Fetch error:", error);
             return new Response("Error fetching players data", { status: 500 });
         }

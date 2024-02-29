@@ -8,12 +8,6 @@
         setMessage("Loading.....")
     })
 
-    if($isLoading){
-        setMessage("Loading, this might take a while (max of 1 minute)....")
-    }else if($databaseLoading){
-        setMessage("Waiting for the database's response, please wait....")
-    }
-
 </script>
 
 {#if $isLoading}

@@ -1,6 +1,6 @@
 
 import {setItem, getItem} from "$lib/storage.js"
-
+import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
 export const load = (({fetch}) =>{
     const getContext = async () =>{
     
@@ -8,10 +8,10 @@ export const load = (({fetch}) =>{
    
         if(!data || data?.message=="Internal Error"){
       
-            var res = await fetch("/api/getContext")
+            var res = await fetchWithRetry("/api/getContext",8000,5,fetch)
 
-            data =await res.json()
-            setItem('context',data)
+            data = res
+            setItem('context',res)
         }
         if(data?.errorType == "LambdaTimeout"){
             setTimeout(() => getContext(),3000)
