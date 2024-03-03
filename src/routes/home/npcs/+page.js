@@ -4,7 +4,7 @@ import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
 export const load= (({fetch}) =>{
     const fetchNpcs = async () =>{
         let npcs = getItem('npcs')
-        if(!npcs || npcs?.message=="Internal Error" || npcs?.errorType == "LambdaTimeout"){
+        if(!npcs || npcs?.message=="Internal Error" || npcs?.errorType == "LambdaTimeout" || npcs == undefined){
             const res = await fetchWithRetry('/api/getnpcs',8000,5,fetch);
             npcs = res
             if(!npcs){
