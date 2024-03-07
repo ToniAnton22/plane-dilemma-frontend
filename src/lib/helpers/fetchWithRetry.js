@@ -10,7 +10,7 @@ export const fetchWithRetry = async(url, retryDelay=5000, maxRetries=5,fetch) =>
             databaseLoading.set(false)
             setMessage("Loading...")
             return await response.json()
-        }else if (response.status === 502 && maxRetries != 0){
+        }else if (response.status === 502 || response.status==504 && maxRetries != 0){
  
             console.log(`Attempt has been exhausted, ${maxRetries-1} more to go....`)
             setMessage(`Database is still sleepy, bare with us for a moment! Retrying... (${maxRetries -1} remaining)`)
