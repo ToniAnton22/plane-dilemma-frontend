@@ -3,7 +3,7 @@ import {DB_HOST} from "$env/static/private"
 /** @type {import('./$types').RequestHandler} */
 
 export async function GET({params}){
-    async function dataFetch(retires = 5, delay =8000){
+    async function dataFetch(retires = 3, delay =6000){
         let response = await fetch(`${DB_HOST}npcs/byId/${params?.id}`)
       if(response.status == 502 && response.status == 504){
     

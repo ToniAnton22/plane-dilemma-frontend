@@ -26,7 +26,14 @@ export const fetchWithRetry = async(url, retryDelay=5000, maxRetries=5,fetch) =>
                 await fetchWithRetry(url,retryDelay,maxRetries-1,fetch)
                 resolve("OK")
             },retryDelay))) }
-        
+        else if (response.status == 500 && maxRetries !=0){
+            console.log(`Attempt has been exhausted, ${maxRetries-1} more to go....`)
+            setMessage(`Database is still sleepy, bare with us for a moment! Retrying... (${maxRetries -1} remaining)`)
+            await new Promise(resolve => (setTimeout(async () =>{
+                await fetchWithRetry(url,retryDelay,maxRetries-1,fetch)
+                resolve("OK")
+            },retryDelay)))
+        }
         else{
  
             setMessage(`Database didn't wake up in time, please refresh the page or come back a bit later!`)

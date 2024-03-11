@@ -3,13 +3,13 @@ import { DB_HOST } from "$env/static/private";
 // Define the GET request handler
 export async function GET() {
     // Recursive function to attempt fetching data with retries
-    async function dataFetch(retries = 5, delay = 5000) {
+    async function dataFetch(retries = 3, delay =6000) {
         try {
             const response = await fetch(`${DB_HOST}players`);
            
             
             // Check if the database returned a "502 Bad Gateway" status
-            if (response.status == 502 || response.status == 504) {
+            if (response?.status == 502 || response?.status == 504 || response?.status==500) {
                 // If retries are exhausted, return a 502 response
                 if (retries <= 0) {
              
