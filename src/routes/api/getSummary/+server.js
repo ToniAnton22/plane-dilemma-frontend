@@ -8,7 +8,7 @@ export async function GET() {
             const response = await fetch(`${DB_HOST}summary`);
 
             // Check if the database returned a "502 Bad Gateway" status
-            if (response.status === 502) {
+            if (response.status == 502 || response.status == 504) {
                 // If retries are exhausted, return a 502 response
                 if (retries <= 0) {
                     return new Response("Database not responsive", { status: 502 });

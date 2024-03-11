@@ -9,7 +9,7 @@ export async function GET() {
            
             
             // Check if the database returned a "502 Bad Gateway" status
-            if (response.status == 502) {
+            if (response.status == 502 || response.status == 504) {
                 // If retries are exhausted, return a 502 response
                 if (retries <= 0) {
              
