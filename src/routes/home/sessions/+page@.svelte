@@ -1,11 +1,17 @@
 <script>
     import {TableOfContents, tocCrawler,getDrawerStore} from "@skeletonlabs/skeleton"
+    import OpenAI from "openai";
+    import quicksort from '$lib/quicksort'
+
+	import { onMount } from "svelte";
     export let data;
     let state = "fixed"
     let buttonColor = 'bg-gradient-to-br variant-gradient-primary-secondary'
     $: isVisibile = false;
-    const drawerStore = getDrawerStore()
 
+
+    const drawerStore = getDrawerStore()
+    let openai
     function toggleTable(){
         if(isVisibile){
             isVisibile = false
@@ -23,6 +29,18 @@
         drawerStore.update(currentState =>{
             return{...currentState, id:'1' || '0'}
         })
+    }
+    onMount(() =>{
+
+    })
+    let summariesSorted = data.summaries.sort((a,b) =>{
+        const titleA = parseInt(a.title.replace("Session ",""),10)
+        const titleB = parseInt(b.title.replace("Session ",""),10)
+
+        return titleA - titleB
+    })
+    async function playSessions(text){
+
     }
     
    
@@ -54,17 +72,17 @@
     </div>
     <article class="flex flex-row gap-6 w-[90vw] mx-auto md:flex-row relative">
         <div use:tocCrawler={{mode:'generate'}} class="flex flex-col grow w-full relative">
-            {#each data.summaries as summary}
+            {#each summariesSorted as summary}
             <div class="card flex flex-col grow w-full relative variant-ghost-error">
                 <h2 class="mx-auto right-0 left-0 text-3xl underline p-4 text-center">{summary?.title}</h2>
 
                 <div class="w-full flex flex-col mx-6 px-6 text-amber-300 items-center ">
                     <div class="flex flex-col w-3/4">
                     {#each summary?.description.split('/n') as sentence}
-                
+                        
                         <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-20 pb-3">{sentence}</p>
-                
                     {/each}
+                    <button on:click={playSessions(summary)}></button>
                     </div>
                     {#if summary?.link.startsWith("https")}
                     <a class="card text-center flex flex-col shrink md:w-1/4 w-full md:visible p-2 scale-75 hover:scale-100 variant-glass-primary h-fit text-white font-bold hover:bg-cyan-200 hover:text-black rounded-full" href='{summary?.link}'>
