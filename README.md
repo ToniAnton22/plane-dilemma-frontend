@@ -1,6 +1,6 @@
 # Link to the website
-[
-](https://www.planedilemma.bard-labs.com/)
+
+https://www.planedilemma.bard-labs.com/
 
 ## Creating a project
 
