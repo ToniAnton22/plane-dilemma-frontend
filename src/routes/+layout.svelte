@@ -1,6 +1,7 @@
 <script>
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, Toast } from '@skeletonlabs/skeleton';
+	import AddLocation from '$lib/components/AddLocation.svelte'
 	import { initializeStores } from '@skeletonlabs/skeleton';
     import { Drawer, getDrawerStore, Modal,getModalStore ,TableOfContents} from '@skeletonlabs/skeleton';
 	import {navigating} from '$app/stores'
@@ -39,6 +40,9 @@
 		setTimeout((drawerStore.close()),5000)
 
 	}
+	const modalRegistry ={
+		addCityModal: {ref: AddLocation}
+	}
 </script>
 
 {#if $isLoading || $databaseLoading }
@@ -61,8 +65,9 @@
 	{/if}
 	<DrawerData/>
 </Drawer>
+<Toast/>
 <PlayAudio/>
-<Modal/>
+<Modal components={modalRegistry}/>
 
 <Mist/>
 <!-- App Shell -->

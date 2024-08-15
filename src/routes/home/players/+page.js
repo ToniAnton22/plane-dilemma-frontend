@@ -1,5 +1,6 @@
 import { getItem,setItem } from '$lib/storage.js'
 import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
+import { redirect } from '@sveltejs/kit'
 export const load = ({fetch}) =>{
     const fetchPlayers = async() =>{
         let players = getItem('players')
@@ -16,7 +17,9 @@ export const load = ({fetch}) =>{
             setTimeout(() => fetchPlayers(),3000)
         }
 
-        
+        if(!players){
+            redirect(302,'/')
+        }
         return players
     }
     return{

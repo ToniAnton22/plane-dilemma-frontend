@@ -15,10 +15,10 @@
             bubbles.push({
                 x: random(0,canvas.width),
                 y: random(0, canvas.height),
-                vx: random(-0.3,0.3),
-                vy: random(-0.4,0.4),
-                radius:random(1,1.8),
-                color: `rgba(255, 143, 232,0.4)`
+                vx: random(-0.2,0.2),
+                vy: random(-0.2,0.2),
+                radius:random(0.5,0.9),
+                color: `rgb(179, 179, 204,0.8)`
             })
         }
     }

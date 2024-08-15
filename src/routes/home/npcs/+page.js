@@ -16,6 +16,10 @@ export const load= (({fetch}) =>{
             setTimeout(() => fetchNpcs(),3000)
         }
         
+        if(!npcs){
+            redirect(302,'/')
+        }
+
         return npcs
 
     }

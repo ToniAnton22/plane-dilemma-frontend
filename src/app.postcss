@@ -5,12 +5,15 @@
 @tailwind variants;
 @use postcss-for;
 
-
+*,*::before, *::after{
+	box-sizing:border-box;
+}
 
 html,
 body {
 	@apply h-full overflow-hidden;
 	font-family: 'Courgette';
+	margin:0;
 }
 
 
@@ -19,6 +22,7 @@ body {
 	font-family: 'Quicksand';
 	src: url('/fonts/Quicksand.ttf');
 	font-display: swap;
+	
 }
 /* vintage theme */
 @font-face {
@@ -33,6 +37,9 @@ body {
 	background-size:cover;
 	width:50px;
 	height:50px;
+	animation-name: bouncyMarkers;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
 }
 .town{
 	background-image: url('/icons/houses.png');
@@ -45,6 +52,15 @@ body {
 	background-size:cover;
 	width:30px;
 	height:30px;
+}
+.treeLife{
+	background-image: url('/icons/tree_of_life.jpg');
+	background-size:cover;
+	width:50px;
+	height:50px;
+	animation-name: bouncyMarkers;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
 }
 
 .mapboxgl-canvas-container > div {
@@ -72,18 +88,18 @@ body {
 }
 
 
-@keyframes placeMarkers{
+@keyframes bouncyMarkers{
 	0%{
-		top:-500px;
-		transform-origin:0 0 0;
-		opacity:0;
+		top:0px;
 	} 
-	50%{
-		opacity:0.5;
+	25%{
+		top:5px;
+	}
+	75%{
+		top: 15px;
 	}
 	100%{
-		top:0;
-		opacity:1
+		top:0px;
 	}
 }
 

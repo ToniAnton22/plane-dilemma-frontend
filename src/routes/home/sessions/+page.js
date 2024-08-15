@@ -1,5 +1,7 @@
 import { getItem,setItem } from '$lib/storage.js';
 import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
+import { redirect } from '@sveltejs/kit';
+
 export const load= ({fetch}) =>{
     const fetchSummaries = async () =>{
         let summaries = getItem('summaries')
@@ -14,6 +16,9 @@ export const load= ({fetch}) =>{
             setTimeout(() => fetchSummaries(),3000)
         }
 
+        if(!summaries){
+            redirect(302,'/')
+        }
         return summaries
     }
     

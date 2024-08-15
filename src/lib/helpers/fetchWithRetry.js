@@ -6,7 +6,7 @@ export const fetchWithRetry = async(url, retryDelay=5000, maxRetries=5,fetch) =>
     try{
         const response = await fetch(url)
 
-        if(response.ok){
+        if(response.status== 200){
             databaseLoading.set(false)
             setMessage("Loading...")
             return await response.json()

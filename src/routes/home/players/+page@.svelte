@@ -1,44 +1,37 @@
 <script>
     import {goto} from '$app/navigation'
+	import Carousel from '../../../lib/components/Carousel.svelte';
     export let data;
+    let cardState = "list"
+    //on:click={navigate(player)} style="background-image:url({player?.avatar})
+
+    let elemCarousel
+
+
+    function carouselLeft() {
+        const x = elemCarousel.scrollLeft === 0 ? elemCarousel.clientWidth * elemCarousel.childElementCount 
+            : elemCarousel.scrollLeft - elemCarousel.clientWidth;
+        
+            elemCarousel.scroll(x,0)
+    }
+
+    function carouselRight() {
+        const x = elemCarousel.scrollLeft === elemCarousel.scrollWidth - elemCarousel.clientWidth ? 0 : elemCarousel.scrollLeft + elemCarousel.clientWidth
+        elemCarousel.scroll(x,0)
+    }
 
     function navigate(player){
         goto('/home/players/player?detail='+encodeURIComponent(JSON.stringify(player)) )
     }
-    const getTheme= (player) =>{
-        let theme
-        let textTheme
-        if(player?.name === "Vanelis"){
-        theme = "bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-sky-900"
-        textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 "
-   
+
+    function carouselThumbnail(index) {
+	    elemCarousel.scroll(elemCarousel.clientWidth * index, 0);
+    }   
+
+    function setState(state){
+        if(state !== "list"){
+            cardState="list"
         }
-        else if(player?.name === "Ng`ombe Radolack"){
-            theme="bg-gradient-to-tr from-stone-900 via-orange-950 to-yellow-800 w-full h-full md:border-l-4 md:border-stone-900"
-            textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-orange-200 to-stone-100 "
-       
-        }
-        else if(player?.name === "Jamond Carter"){
-            theme="bg-gradient-to-br from-indigo-900 via-rose-950 to-blue-800 w-full h-full md:border-l-4 md:border-violet-400"
-            textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-blue-400 "
-         
-        
-        }
-        else if(player?.name === "Kalahari"){
-            theme=`bg-gradient-to-b from-gray-500 via-rose-100 to-slate-800 w-full h-full md:border-l-4 md:border-gray-400`
-            textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  "
-       
-        }
-        else if(player?.name === "Fennex Stoutwings"){
-            theme="bg-gradient-to-t from-amber-700 via-orange-700 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden"
-            textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-100 "
-     
-        }
-        else if(player?.name === "Bastion"){
-            theme="bg-gradient-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900"
-            textTheme="font-serif bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-neutral-100 "
-        }
-        return textTheme
     }
     
 </script>
@@ -47,21 +40,8 @@
         <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
 </a>
-<div class="container flex w-full mx-auto my-auto h-3/4 align-center justify-start items-center mt-20 overflow-scroll">
-    <!-- svelte-ignore a11y-missing-attribute -->
-    {#each data.players as player}
-  
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <a class="card relative sm:max-md:w-full h-5/6 w-96 transition ease-in-out duration-1000 delay-75 variant-ghost-primary hover:scale-100 hover:w-1/2 hover:h-full hover:bg-start hover:transform-10 hover:z-10 bg-cover bg-no-repeat bg-center" on:click={navigate(player)} style="background-image:url({player?.avatar})">
-     
-        <header class="{getTheme(player)} text-xl pl-3 pt-2 shadow" >{player?.name}</header>
-        <footer class="card-footer bottom-0 my-auto absolute {getTheme(player)} text-md shadow">{player?.class}
-        </footer>
 
-    </a>
-    {/each}
-</div>
+<Carousel players={data.players} navigate={navigate}/>
 
 <style lang="postcss">
 

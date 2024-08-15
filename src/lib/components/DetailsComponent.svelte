@@ -3,14 +3,14 @@
     import {getItem} from "$lib/storage.js"
 	import { onMount } from "svelte";
     export let details;
-    console.log(details)
+
     export let data;
     let source = [];
     if(!data){
         data = getItem('npcs')
     }
     
-    console.log(data)
+
     $: if(source){ 
         source = data.filter(npc => npc.location.includes("Yua`san"));
         paginationSettings ={

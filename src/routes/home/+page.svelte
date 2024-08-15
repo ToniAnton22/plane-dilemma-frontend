@@ -2,8 +2,9 @@
     import {onDestroy, onMount} from "svelte"
     import {databaseLoading} from "$lib/loadingStore.js"
 	import LoadingScreen from "../LoadingScreen.svelte"
-    import {invalidateAll} from "$app/navigation"
+    import {goto, invalidateAll} from "$app/navigation"
     import {browser} from "$app/environment"
+    import {redirect} from "@sveltejs/kit"
     import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
     import DrawerData from "$lib/components/DrawerData.svelte"
     export let data
@@ -20,6 +21,7 @@
     onMount(() =>{
         if($databaseLoading == true ){
             console.log("checking db")
+            goto('/')
             delay(10000)
             
         }

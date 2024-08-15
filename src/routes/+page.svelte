@@ -14,6 +14,10 @@
 	export let data
 	let visible = true 
 	const toggleVis = () =>{
+		if(data){
+			visible=false
+			return
+		}
 		if (visible){
 			visible = false
 		}else{
@@ -36,7 +40,7 @@
 		
 	})
 
-
+ 
 	const drawerStore = getDrawerStore()
     const settings  = {id:'0'}
 	
@@ -45,35 +49,29 @@
 	
 </script>
 
-<div class="h-full mx-0 p-0 flex justify-center items-center w-full bg-no-repeat bg-cover absolute -z-20
-brightness-[0.6] avatar-animation" style="background-image: url('/images/plane-dillema.jpg');">
+<div class="h-full mx-0 p-0 flex justify-center items-center w-full bg-no-repeat bg-cover absolute bg-center -z-20
+brightness-[0.6] avatar-animation" style="background-image: url('/images/background2.webp');">
+	<div class="absolute top-[90px] right-[545px] w-2 h-0 rounded-full glow avatar-animation">
 
+	</div>
+	<div class="absolute top-[90px] left-[545px] w-2 h-0 rounded-full glow avatar-animation">
+
+	</div>
+	<div class="absolute bottom-[210px] right-[530px] w-2 h-0 rounded-full glow avatar-animation">
+
+	</div>
+	<div class="absolute bottom-[210px] left-[535px] w-2 h-0 rounded-full glow avatar-animation">
+
+	</div>
 </div>
 
 <div class="h-full mx-0 p-0 flex justify-center items-center w-full" >
 	{#if data.open}
-	<div class="absolute space-y-10 text-center flex flex-col items-center z-35">
-		<h2 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase ">Welcome to Plane Dilemma</h2>
-		<a class="btn bg-gradient-to-r from-slate-400 to-indigo-300" href="/home">Explore</a>
+	<div class="absolute space-y-10 w-64 top-64 text-center flex flex-col items-center z-35 avatar-animation">
+		<p class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase text-xl">Welcome to Plane Dilemma</p>
+		<a class="absolute btn bg-gradient-to-r from-slate-400 to-indigo-300 text-sm inset-x-50 right-0" href="/home">Explore</a>
 	</div>
 
-	{#await tick()}
-		<div in:fade class="absolute w-screen h-screen overflow-hidden hide-scrollbar bg-black z-40">
-			<div out:fade={{delay:2700,duration:1000}} class="grid w-full h-full items-center justify-center p-10 m-4">
-				<h1 class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase text-5xl text-center">"Roll the dice of fate, for in the realm of imagination, every outcome is a story waiting to be told."</h1>
-			</div>
-		</div>
-	{:then} 
-
-	{/await}
-	{#if visible}
-		<div out:fade={{delay:4000, duration:3000}} class="absolute w-screen h-screen overflow-hidden hide-scrollbar bg-black z-20 transition-opacity">
-			<div out:fade={{delay:2700,duration:1000}} class="grid w-full h-full items-center justify-center p-10 m-4">
-				<h1 class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase text-5xl text-center">"Roll the dice of fate, for in the realm of imagination, every outcome is a story waiting to be told."</h1>
-			</div>
-			{toggleVis()}
-		</div>		
-	{/if}
 
 
 {/if}
@@ -91,34 +89,60 @@ brightness-[0.6] avatar-animation" style="background-image: url('/images/plane-d
         animation-timing-function:ease-in-out;
         background-size: cover;
 		transition: transform 2s;
+		filter:brightness(90%)
     }
+	.glow{
+		box-shadow:
+		0 0 60px 40px #f7da9ba9,  /* inner white */
+		0 0 100px 70px #d49b1fc9, /* middle magenta */
+		0 0 140px 110px #e28242c2; /* outer cyan */
+		filter: brightness(150%);
+		animation-duration: 5s;
+		animation-iteration-count: infinite;
+		animation-name: glow-effect;
+	}
+
+	@keyframes glow-effect{
+		0%{
+			filter:brightness(120%);
+			transform:scale(1)
+		}
+		25%{
+			filter:brightness(130%);
+			transform:scale(1.3)
+		}
+		50%{
+			transform: scale(1);
+		}
+		75%{
+			filter:brightness(150%);
+			transform:scale(1.3)
+		}
+		100%{
+			filter:brightness(160%);
+			transform:scale(1)
+		}
+	}
+
 	@keyframes custom-animation{
         0%{
-            filter:blur(0px);
-            filter:saturate(70%);
           
 			transfrom:translate(0);
-            filter:hue-rotate(5deg);
-            transform:scale(1);
-            filter:brightness(80%)
+            transform:translate(12px,2%);
+			transform:scale(1.01)
+			
         }
         25%{
-            filter:saturate(90%);
-            filter:hue-rotate(25deg);
-            filter:brightness(80%)
+    
         }
         50%{
-            filter:saturate(110%);
-            filter:hue-rotate(15deg);
-            filter:brightness(85%)
+
         }
         100%{
-            filter:blur(3px);
-            filter:saturate(125%);
-			transform:translate(100);
-            filter:hue-rotate(5deg);
-            transform: scale(1.03);
-            filter:brightness(90%)
+
+			transform:translate(-12px,-2%);
+			transform: scale(1);
+		
         }
     }
 

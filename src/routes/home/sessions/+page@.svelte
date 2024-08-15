@@ -3,6 +3,7 @@
     import OpenAI from "openai";
     import quicksort from '$lib/quicksort'
 
+
 	import { onMount } from "svelte";
     export let data;
     let state = "fixed"
@@ -80,9 +81,9 @@
                     <div class="flex flex-col w-3/4">
                     {#each summary?.description.split('/n') as sentence}
                         
-                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-20 pb-3">{sentence}</p>
+                        <p class="text-start leading-relaxed font-bold first-letter:text-3xl font-mono first-letter:font-courgette courgette z-20 pb-3 indent-10">{sentence}</p>
                     {/each}
-                    <button on:click={playSessions(summary)}></button>
+                    <button class="w-64 h-64" on:click={playSessions(summary)}></button>
                     </div>
                     {#if summary?.link.startsWith("https")}
                     <a class="card text-center flex flex-col shrink md:w-1/4 w-full md:visible p-2 scale-75 hover:scale-100 variant-glass-primary h-fit text-white font-bold hover:bg-cyan-200 hover:text-black rounded-full" href='{summary?.link}'>

@@ -11,7 +11,12 @@ export const load = ({fetch}) =>{
       
       async function checkDatabase(){
         const npcs = await fetchWithRetry('/api/getnpcs',8000,5,fetch)
-        setItem('npcs',npcs)
+        if(!npcs){
+          await fetchWithRetry('/api/getnpcs',8000,5,fetch)
+        }else{
+          setItem('npcs',npcs)
+          return {open:true}
+        }
         return {open:false}
       }
 
