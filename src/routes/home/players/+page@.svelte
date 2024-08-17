@@ -1,6 +1,7 @@
 <script>
     import {goto} from '$app/navigation'
-	import Carousel from '../../../lib/components/Carousel.svelte';
+	import Book from '$lib/components/Book.svelte';
+	import Carousel from '$lib/components/Carousel.svelte';
     export let data;
     let cardState = "list"
     //on:click={navigate(player)} style="background-image:url({player?.avatar})
