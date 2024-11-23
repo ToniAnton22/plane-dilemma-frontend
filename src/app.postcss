@@ -5,24 +5,24 @@
 @tailwind variants;
 @use postcss-for;
 
-*,*::before, *::after{
-	box-sizing:border-box;
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 }
 
 html,
 body {
 	@apply h-full overflow-hidden;
 	font-family: 'Arial';
-	margin:0;
+	margin: 0;
 }
-
 
 /* gold-nouveau theme */
 @font-face {
 	font-family: 'Quicksand';
 	src: url('/fonts/Quicksand.ttf');
 	font-display: swap;
-	
 }
 /* vintage theme */
 @font-face {
@@ -31,74 +31,110 @@ body {
 	font-display: swap;
 }
 
-.capital{
-
+.capital {
 	background-image: url('/icons/castle.png');
-	background-size:cover;
-	width:50px;
-	height:50px;
+	background-size: cover;
+	width: 50px;
+	height: 50px;
 	animation-name: bouncyMarkers;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
 }
-.town{
+.town {
 	background-image: url('/icons/houses.png');
-	background-size:cover;
-	width:30px;
-	height:30px;
+	background-size: cover;
+	width: 30px;
+	height: 30px;
 }
-.port{
+.port {
 	background-image: url('/icons/port.png');
-	background-size:cover;
-	width:30px;
-	height:30px;
+	background-size: cover;
+	width: 30px;
+	height: 30px;
 }
-.treeLife{
+.treeLife {
 	background-image: url('/icons/tree_of_life.jpg');
-	background-size:cover;
-	width:50px;
-	height:50px;
+	background-size: cover;
+	width: 50px;
+	height: 50px;
 	animation-name: bouncyMarkers;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
 }
 
 .mapboxgl-canvas-container > div {
-
-
 }
-
 
 .mapboxgl-popup {
 	background-color: transparent;
-	margin:0;
-	padding:0;
-
+	margin: 0;
+	padding: 0;
 }
-.mapboxgl-popup-content{
+.mapboxgl-popup-content {
 	background-color: transparent;
 }
-.mapboxgl-popup-content-wrapper{
+.mapboxgl-popup-content-wrapper {
 	background-color: red;
-
 }
 
+.book {
+	display: grid;
+	grid-template-areas: 'edge-left content-left divider content-right edge-right';
+	height: 94vh;
+	margin: 2vh;
+	padding: 0;
+	grid-gap: 0;
+	grid-template-columns: 2% 48% 0.2% 48% 2%;
+	box-shadow: 0vw 0.2vw 1vw 1vw black;
+}
+.edge-left {
+	grid-area: edge-left;
+	background: url('/images/background/book-cover.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: -0.8vw 0px 0.5vw 0px black inset;
+}
+.edge-right {
+	grid-area: edge-right;
+	background: url('/images/background/book-cover.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.content-right {
+	grid-area: content-right;
+	background-color: blue;
+	background: url('/images/background/pages.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-shadow: 1vw 0px 0.5vw 0px black;
+	z-index: 1;
+}
+.content-left {
+	grid-area: content-left;
+	background-color: blue;
+	background: url('/images/background/pages.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: 1;
+}
+.divider {
+	grid-area: divider;
+	background: url('/images/background/pages.jpg');
+	box-shadow: 0vw 0vw 1.7vw 0.8vw black, 4px 0px 7px 2px black inset, -4px 0px 7px 2px black inset;
+	z-index: 2;
+}
 
-
-
-
-@keyframes bouncyMarkers{
-	0%{
-		top:0px;
-	} 
-	25%{
-		top:5px;
+@keyframes bouncyMarkers {
+	0% {
+		top: 0px;
 	}
-	75%{
+	25% {
+		top: 5px;
+	}
+	75% {
 		top: 15px;
 	}
-	100%{
-		top:0px;
+	100% {
+		top: 0px;
 	}
 }
-
