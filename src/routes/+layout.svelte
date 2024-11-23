@@ -31,9 +31,6 @@
 	}else {
 		$drawerStore.id = stage
 	}
-	console.log(stage)
-	$: console.log($drawerStore.open)
-	$: console.log($drawerStore.id)
 
 	function closeDrawer(){
 	

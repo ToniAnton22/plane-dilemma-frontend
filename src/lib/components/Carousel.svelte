@@ -23,7 +23,6 @@
         playerData=player
     }
     
-    console.log(background)
 </script>
 
 <Book>
@@ -31,19 +30,19 @@
         <div class="absolute badge h-[10vh] lg:-top-[1vh] -top-[3.5vh] inset-x-0 p-4 mx-auto z-40 text-black">
             <div class="grid grid-cols-6 gap-4 w-full justify-items-center">
                 {#each players as player, i } 
-                <a href={`#carousel-item-${i}`} class="transition h-[10vh] w-[4vw] ease-in delay-150 duration-200 opacity-75 border hover:opacity-100 hover:scale-110 rounded-b-full bg-cover bg-center" style="background-image:url({player?.avatar})" on:click={() =>changeTheme(player)}>
+                <a href={`#carousel-item-${i}`} class="transition h-[10vh] w-[4vw] ease-in delay-150 duration-200 opacity-75 border hover:opacity-100 hover:scale-110 rounded-b-full bg-cover bg-center" style="background-image:url({player?.image})" on:click={() =>changeTheme(player)}>
                 </a>
                 {/each} 
             </div>
         </div>    
-        <div class="h-full flex flex-col items-center text-center gap-10 variant-ghost-surface">
+        <div class="h-full flex flex-col items-center variant-soft-surface rounded-lg text-center gap-10 justify-center variant-ghost-surface">
             {#if !playerData}
                 <p class="p-4 mt-20">{players[0]?.name}</p>
-                <p class="w-1/2">{players[0]?.summary.split(".")[0]}....</p>
+                <p class="w-1/2">{players[0]?.background.split(".")[0]}....</p>
             {/if}
             {#if playerData}
-                <p class="p-4 mt-20 {playerTextTheme} variant-glass-success">{playerData?.name}</p>
-                <p class="w-1/2 {playerTextTheme} variant-glass-surface">{playerData?.summary.split(".")[0]}....</p>
+                <p class="p-4 mt-20 variant-filled-surface rounded-lg">{playerData?.name}</p>
+                <p class="w-1/2 p-4 variant-filled-surface rounded-lg">{playerData?.background.split(".")[0]}....</p>
             {/if}
             
         </div>
@@ -53,7 +52,7 @@
             {#each players as player,i }
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <!-- svelte-ignore a11y-no-static-element-interactions -->
-                <a id="carousel-item-{i}" class="shrink-0 snap-center bg-cover bg-center bg-no-repeat w-full" style="background-image:url({player?.avatar})" on:click={() => navigate(player)}>
+                <a id="carousel-item-{i}" class="shrink-0 snap-center bg-cover bg-center bg-no-repeat w-full" style="background-image:url({player?.image})" on:click={() => navigate(player)}>
                 
                 </a>
             {/each}

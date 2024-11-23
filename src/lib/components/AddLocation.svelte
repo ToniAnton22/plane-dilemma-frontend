@@ -3,9 +3,8 @@
     export let parent;
     export let lat;
     export let lng
-    console.log(parent,lat,lng)
+
     const modalStore = getModalStore();
-    if($modalStore[0]) console.log($modalStore[0].title)
     lat = JSON.stringify($modalStore[0].meta.lat)
     lng = JSON.stringify($modalStore[0].meta.lng)
     const modal ={

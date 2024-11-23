@@ -4,7 +4,6 @@
     import DetailsComponent from './DetailsComponent.svelte';
     export let town; // The town data is passed as a prop
 
-    console.log(town)
   let canvas;
   let ctx;
   let details
@@ -52,9 +51,6 @@
       info = '10'
       details = {population:town?.population, culture:town?.culture, religion:town?.religion}
     }
-    console.log(isDetails,isEvents,isPopulation,isImage)
-    console.log(image,info)
-
   }
   </script>
   <div class="flex flex-row-reverse h-full">

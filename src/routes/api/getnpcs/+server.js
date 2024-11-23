@@ -1,9 +1,13 @@
-import {DB_HOST} from "$env/static/private"
+import {DB_HOST,X_API_KEY} from "$env/static/private"
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
     async function dataFetch(retires = 3, delay =6000){
-        const response = await fetch(`${DB_HOST}npcs`)
+        const response = await fetch(`${DB_HOST}npcs`,   {
+          headers:{
+            'X-API-KEY':X_API_KEY
+          }
+        })
         console.log("I arrive here " + response.status)
       if(response?.status == 502 || response?.status == 504 || response?.status==500){
         await new Promise(resolve => setTimeout(resolve,delay))

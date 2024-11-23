@@ -1,11 +1,17 @@
-import {DB_HOST} from "$env/static/private"
+import {DB_HOST,X_API_KEY} from "$env/static/private"
 
 /** @type {import('./$types').RequestHandler} */
 
 export async function GET({params}){
     
     console.log("Resources are being fetched.")
-    let response = await fetch(`${DB_HOST}players/byId/${params?.id}`)
+    let response = await fetch(`${DB_HOST}players/byId/${params?.id}`,
+        {
+            headers:{
+              'X-API-KEY':X_API_KEY
+            }
+        }
+    )
 
     let data = await response.json()
   

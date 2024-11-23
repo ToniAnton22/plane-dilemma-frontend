@@ -15,7 +15,7 @@
         }else{
             content = data?.context.filter((p) =>
             { 
-                return (p.title.toLowerCase().includes(filter.toLowerCase()) || p.info.toLowerCase().includes(filter.toLowerCase()))
+                return (p.name.toLowerCase().includes(filter.toLowerCase()) || p.description.toLowerCase().includes(filter.toLowerCase()))
             }) 
       }
       
@@ -40,9 +40,9 @@
         <Accordion class="flex-col variant-ghost-secondary" autocollapse>
             {#each content as p}
                 <AccordionItem regionPanel="font-bold text-xl text-stone-100 " class="text-2xl">
-                    <svelte:fragment slot="summary">{p.title}</svelte:fragment>
+                    <svelte:fragment slot="summary">{p.name}</svelte:fragment>
                     <svelte:fragment slot="content">
-                        {#each p.info.split("/n") as sentence}
+                        {#each p.description.split("/n") as sentence}
                           <p class="font-serif">{sentence}</p>
                           <br>
                         {/each} 

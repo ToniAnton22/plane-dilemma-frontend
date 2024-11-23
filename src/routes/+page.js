@@ -3,7 +3,7 @@ import { fetchWithRetry } from "../lib/helpers/fetchWithRetry.js";
 import { setItem } from "$lib/storage.js";
 
 export const load = ({fetch}) =>{
-  const sessionStoreInitialized = getItem('players');
+  const sessionStoreInitialized = getItem('npcs');
       if (sessionStoreInitialized) {
         console.log("Session storage already initialized, skipping database check.");
         return {open: true};

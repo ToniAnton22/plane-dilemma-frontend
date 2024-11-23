@@ -34,7 +34,7 @@
     $: audioMuted.subscribe(value =>{
         if (audio){
             audio.muted = value;
-            console.log(value)
+        
             if(!value){
                 if(audio.paused){
                     audio.play().then().catch(error =>{console.log(error)})

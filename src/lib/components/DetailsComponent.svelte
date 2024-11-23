@@ -21,7 +21,6 @@
     }
     }
 
-    console.log(data)
     let paginationSettings
 </script>
 

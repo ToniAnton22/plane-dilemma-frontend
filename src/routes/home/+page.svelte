@@ -25,7 +25,6 @@
 			delay(10000);
 		}
 	});
-	console.log(data);
 	const drawerStore = getDrawerStore();
 	$: {
 		drawerStore.update((currentState) => {

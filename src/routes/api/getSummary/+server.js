@@ -1,11 +1,15 @@
-import { DB_HOST } from "$env/static/private";
+import {DB_HOST,X_API_KEY} from "$env/static/private"
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
     // Recursive function to attempt fetching data with retries
     async function dataFetch(retries = 3, delay =6000) {
         try {
-            const response = await fetch(`${DB_HOST}summary`);
+            const response = await fetch(`${DB_HOST}summary`,   {
+                headers:{
+                  'X-API-KEY':X_API_KEY
+                }
+              });
 
             // Check if the database returned a "502 Bad Gateway" status
             if (response?.status == 502 || response?.status == 504 || response?.status==500) {

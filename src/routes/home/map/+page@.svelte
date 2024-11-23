@@ -37,7 +37,6 @@
         }
 	}
 	const getGroupLatestLocation = (cord) => {
-		console.log(cord);
 		let trackedCoordinates = [];
 		let newCoord = [];
 		cord.forEach((playerCord) => {
@@ -48,7 +47,6 @@
 						coordinate: coordinate
 					});
 				});
-				console.log(trackedCoordinates.length);
 			} else {
 				playerCord.coordinates.forEach((tracking) => {
 					for (let i = 0; i < trackedCoordinates.length; i++) {
@@ -68,13 +66,12 @@
 				});
 			}
 		});
-		console.log(trackedCoordinates);
 	};
 	const playerNameList = () => {
 		let playerList = [];
-		data?.towns?.players.forEach((player) => {
-			makePath(player?.track, player?.name);
-		});
+		// data?.towns?.players.forEach((player) => {
+		// 	makePath(player?.track, player?.name);
+		// });
 		//getGroupLatestLocation(coordinatesPlayers)
 		return playerList;
 	};
@@ -121,9 +118,7 @@
 		towns.forEach((town) => applyClasses(town));
 	}
 	let expandMarker = (town) => {
-		console.log('here');
 		drawerStore.update((currentState) => {
-			console.log(town?.image);
 			return { ...currentState, id: '2', town };
 		});
 	};
@@ -169,7 +164,6 @@
 
 		marker.getElement().addEventListener('click', (e) => {
 			drawerStore.update((currentState) => {
-				console.log(town?.image);
 				return { ...currentState, id: '2', town };
 			});
 		});
@@ -184,7 +178,7 @@
 	}
 	function getPlayerRoute(e) {
 		let path;
-		console.log(coordinatesPlayers);
+	
 		if (e.target.checked) {
 			switch (e.target.value) {
 				case 'Fennex Stoutwings':
@@ -314,7 +308,7 @@
 						on:change={(e) => getPlayerRoute(e)}
 					>
 						<div class="w-32 rounded-full variant-filled-secondary">
-							<img src={player?.avatar} alt={player?.name} class="w-32 h-32 rounded-full" />
+							<img src={player?.image} alt={player?.name} class="w-32 h-32 rounded-full" />
 							<div class="card-footer text-white text-center">{player?.name}</div>
 						</div>
 					</ListBoxItem>

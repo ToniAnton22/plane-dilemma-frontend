@@ -27,7 +27,7 @@
     onMount(() =>{
         const canvas = document.getElementById('bgCanvas')
         ctx = canvas.getContext('2d')
-        console.log(ctx)
+
         createBubble(numBubbles,ctx,canvas)
         animate(ctx,canvas)
     })

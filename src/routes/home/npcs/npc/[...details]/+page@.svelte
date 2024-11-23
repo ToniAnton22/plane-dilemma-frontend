@@ -16,7 +16,7 @@
 <img src='/images/npcpage.png' class="absolute bg-contain bg-no-repeat bg-center mx-auto w-full h-full bg-scroll opacity-75 brightness-75 blur-sm -z-20" alt={data?.npc?.name}/>
 <main class="flex lg:h-full h-screen lg:flex-row flex-col-reverse space-x-2 overflow-scroll">
     <header class="lg:mx-10 my-16 lg:w-1/2 w-full relative">
-        <div class="mx-auto card w-96 h-96 bg-cover bg-center bg-no-repeat rounded-full border-[10px] shadow-cyan-200 border-cyan-600" style="background-image:url({data?.npc?.avatar})">
+        <div class="mx-auto card w-96 h-96 bg-cover bg-center bg-no-repeat rounded-full border-[10px] shadow-cyan-200 border-cyan-600" style="background-image:url({data?.npc?.image})">
         </div>
         <h1 class="mx-auto text-4xl text-center w-96 font-bold font-serif p-4 m-6">
             {data?.npc?.name}
@@ -43,10 +43,10 @@
                 <!-- Tab Panels --->
                 <svelte:fragment slot="panel">
                     {#if tabSet === 0}
-                        {data?.npc?.sex}
-                        {data?.npc?.race}
+                        {data?.npc?.role}
+                        {data?.npc?.affiliation}
                     {:else if tabSet === 1}
-                        {#each data?.npc?.info.split("/n") as sentence}
+                        {#each data?.npc?.background.split("/n") as sentence}
                             <p>{sentence}</p>
                         {/each}
                     {:else if tabSet === 2}
