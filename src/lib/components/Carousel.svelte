@@ -12,7 +12,7 @@
 
     let backgroundCarouselTheme
     let playerTextTheme
-    let background = "/images/background/Fennex-bg.webp"
+    let background = "/images/background/Kalahari-bg.webp"
     let playerData
 
     function changeTheme(player){
