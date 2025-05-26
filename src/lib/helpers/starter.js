@@ -1,4 +1,4 @@
-import RequestManager from "$lib/helpers/requestManager.js";
+import RequestManager from "$lib/helpers/RequestManager.js";
 
 const requestManager = new RequestManager(new Map(), new Map());
 
