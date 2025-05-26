@@ -1,15 +1,8 @@
 <script>
-    import { getModalStore } from '@skeletonlabs/skeleton';
-    export let parent;
-    export let lat;
-    export let lng
+    let {parent, lat, lng} = $props()
 
-    const modalStore = getModalStore();
-    lat = JSON.stringify($modalStore[0].meta.lat)
-    lng = JSON.stringify($modalStore[0].meta.lng)
-    const modal ={
-        response: (r) => console.log('response:',r)
-    }
+
+  
     const submitInfo = async(event) =>{
         event.preventDefault()
         const formData={
@@ -19,7 +12,7 @@
 
 </script>
 
-{#if $modalStore[0]}
+{#if false}
     <form class="flex flex-col" method="POST" action="/api/addLocation">
         <div class="grid grid-cols-3 gap-2">
             <label for="lat">Latitude</label>
@@ -82,7 +75,7 @@
         <div class="flex justify-end my-2">
             <input type="submit" value="Submit" 
             on:submit|preventDefault={submitInfo}
-            class="variant-filled-success w-24 h-12 rounded-lg hover:variant-filled-surface hover:variant-outline-warning hover:shadow-xl"/>
+            class="preset-filled-success-500 w-24 h-12 rounded-lg hover:preset-filled-surface-500 hover:variant-outline-warning hover:shadow-xl"/>
         </div>
         
     </form>

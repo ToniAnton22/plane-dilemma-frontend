@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     export let vol;
   </script>
   
@@ -71,4 +71,4 @@
           background: #4CAF50; /* Green background */
           cursor: pointer; /* Cursor on hover */
       }
-  </style>
+  </style> -->

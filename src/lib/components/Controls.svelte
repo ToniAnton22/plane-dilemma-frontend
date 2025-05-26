@@ -10,7 +10,7 @@
 		fwd: "https://freesvg.org/img/media-skip-forward.png"
 	}
 	
-  export let isPlaying;
+  let { isPlaying } = $props();
 	
 </script>
 

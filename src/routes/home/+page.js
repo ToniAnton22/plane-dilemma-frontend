@@ -1,26 +1,36 @@
+export const ssr = false
 import {getItem, setItem} from "$lib/storage.js" 
-import { fetchWithRetry } from "$lib/helpers/fetchWithRetry.js"
-import { redirect } from "@sveltejs/kit"
+import { loading } from "$lib/helpers/loading.svelte.js";
 
 export const load = ({fetch}) =>{
-    let resourceUrlList = ['/api/getplayers','/api/getSummary','/api/getnpcs','/api/getTowns','/api/getContext']
-    let resourcesList = ['players','summaries','npcs','towns','context']
-    const fetchResources = async() =>{
-        let resources = getItem('players')
-        let data
-        if(!resources || !resources?.name){
-            for(let i;i < resourceUrlList.length-1;i++){
-                const response = await fetchWithRetry(resourceUrlList[0], 8000, 5, fetch)
-                data = response
-                setItem(resourcesList[i],response)
+  loading.value = true
+  const sessionStoreInitialized = getItem('npcs');
+      if (sessionStoreInitialized) {
+        loading.value = false
+        console.log("Session storage already initialized, skipping database check.");
+        return {open: true};
+      }
+      
+      async function checkDatabase(){
+        try{
+          loading.message=`Loading in server...`
+          const data = await(await fetch('/api/getDetails')).json()
+          console.log("Data received from server:", data);
+          if(data || data != 'Error: Error: Request in progress'){
+            for(const property in data){
+              setItem(property,data[property].value)
             }
-            if(!data){
-                redirect(302,'/')
-            }else{
-                return {...data}
-            }
+            loading.value = false
+            return {open:true}
+          }
+          
+          loading.value = true
+          return {open:false}
+        }catch(e){
+          console.log("Error in checkDatabase",e)
+          loading.value = true
+          return {open:false}
         }
-        return {...resources}
-    }
-    return fetchResources()
-}
+      }
+    return checkDatabase()
+};

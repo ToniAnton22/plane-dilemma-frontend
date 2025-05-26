@@ -1,36 +1,5 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
-	import { databaseLoading } from '$lib/loadingStore.js';
-	import LoadingScreen from '../LoadingScreen.svelte';
-	import { goto, invalidateAll } from '$app/navigation';
-	import { browser } from '$app/environment';
-	import { redirect } from '@sveltejs/kit';
-	import { Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 	import Book from '$lib/components/Book.svelte';
-	import DrawerData from '$lib/components/DrawerData.svelte';
-	export let data;
-
-	$: currentPathName = (browser && window.location.pathname) || '/home';
-	$: $databaseLoading;
-
-	const delay = (ms) => new Promise((res) => setTimeout(checkDb, ms));
-	async function checkDb() {
-		console.log('In delay');
-		invalidateAll();
-	}
-	onMount(() => {
-		if ($databaseLoading == true) {
-			console.log('checking db');
-			goto('/');
-			delay(10000);
-		}
-	});
-	const drawerStore = getDrawerStore();
-	$: {
-		drawerStore.update((currentState) => {
-			return { ...currentState, id: '0' || '0' };
-		});
-	}
 </script>
 
 <img
@@ -38,10 +7,8 @@
 	src="Ethereal_plane.jpg"
 	alt="Ethereal Plane"
 />
-{#if $databaseLoading == true}
-	<LoadingScreen />
-{/if}
-<Book>
+
+{#snippet snippetLeft()}
 	<div class="w-full h-full" slot="page-one">
 		<div class="container mx-auto px-2">
 			<h1 class="text-3xl uppercase pt-10 text-black text-center">
@@ -128,6 +95,8 @@
 			</div>
 		</div>
 	</div>
+{/snippet}
+{#snippet snippetRight(page)}
 	<div slot="page-two">
 		<div class="container mx-auto px-2 text-black">
 			<h1 class="text-3xl uppercase py-10 text-black text-center">
@@ -188,7 +157,8 @@
 			</div>
 		</div>
 	</div>
-</Book>
+{/snippet}
+<Book {snippetLeft} {snippetRight} />
 <div class="" />
 
 <style lang="scss">

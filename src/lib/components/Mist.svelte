@@ -1,9 +1,8 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
     import {slide} from "svelte/transition"
     const numBubbles = 100
-    let bubbles = [];
-    let bubbleColors = ["purple","pink"]
+    let bubbles = $state([]);
+    let bubbleColors = $state(["purple","pink"])
     let canvas;
     function random(min, max){
         return Math.random() * (max - min) +min
@@ -22,9 +21,9 @@
             })
         }
     }
-    let ctx;
+    let ctx = $state();
 
-    onMount(() =>{
+    $effect(() =>{
         const canvas = document.getElementById('bgCanvas')
         ctx = canvas.getContext('2d')
 

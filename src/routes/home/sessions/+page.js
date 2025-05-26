@@ -1,28 +1,49 @@
-import { getItem,setItem } from '$lib/storage.js';
-import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
-import { redirect } from '@sveltejs/kit';
+export const ssr = false
+import {getItem, setItem} from "$lib/storage.js" 
+import { loading } from "$lib/helpers/loading.svelte.js";
 
-export const load= ({fetch}) =>{
-    const fetchSummaries = async () =>{
-        let summaries = getItem('summaries')
-        if(!summaries || summaries?.message=="Internal Error" || summaries?.errorType == "LambdaTimeout"){
-            console.log('Fetching from server')
-            const res = await fetchWithRetry('/api/getSummary',8000,5,fetch);
-            summaries = res
-            setItem('summaries',summaries)
-        
+export const load = ({fetch}) =>{
+  loading.value = true
+  const sessionStoreInitialized = getItem('sessionSummaries');
+      if (sessionStoreInitialized) {
+        loading.value = false
+        console.log("Session storage already initialized, skipping database check.");
+        return {
+          sessions: sessionStoreInitialized,
+          players: getItem('players'),
+          seesionPlayers: getItem('sessionPlayers'),
+          sessionNpcs: getItem('sessionNpcs'),
+          sessionEvents: getItem('sessionEvents'),
+          npcs: getItem('npcs'),
+        };
+      }
+      
+      async function checkDatabase(){
+        try{
+          loading.message=`Loading in server...`
+          const data = await(await fetch('/api/getDetails')).json()
+          if(data || data != 'Error: Error: Request in progress'){
+            for(const property in data){
+              setItem(property,data[property].value)
+            }
+            loading.value = false
+            return {
+              sessions: data.sessionSummaries,
+              players: getItem('players'),
+              seesionPlayers: getItem('sessionPlayers'),
+              sessionNpcs: getItem('sessionNpcs'),
+              sessionEvents: getItem('sessionEvents'),
+              npcs: getItem('npcs'),
+            }
+          }
+          
+          loading.value = true
+          return {open:false}
+        }catch(e){
+          console.log("Error in checkDatabase",e)
+          loading.value = true
+          return {open:false}
         }
-        if(summaries?.errorType == "LambdaTimeout"){
-            setTimeout(() => fetchSummaries(),3000)
-        }
-
-        if(!summaries){
-            redirect(302,'/')
-        }
-        return summaries
-    }
-    
-    return{
-        summaries:fetchSummaries()
-    }
-}
+      }
+    return checkDatabase()
+};

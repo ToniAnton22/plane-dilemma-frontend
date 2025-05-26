@@ -1,9 +1,11 @@
 <script>
     import NpcsView from "$lib/components/NpcsView.svelte"
-    export let data;
-    export let filter;
+    let { data, filter = $bindable() } = $props();
 
-    let source = data.npcs
+    let source = $state(data.npcs)
+    let page = $state(1)
+    let limit = $state(4)
+    let count = $derived(data.npcs.length)
     const filterContent = () =>{
         if(!filter){
             source = data.npcs
@@ -13,12 +15,7 @@
             return p.name.toLowerCase().includes(filter.toLowerCase())
         })
     }
-    let paginationSettings ={
-        page:0,
-        limit:4,
-        size:source.length,
-        amounts:5
-    }
+
 
 
 </script>
@@ -29,8 +26,8 @@
 </a>
 <div class="container flex-col mx-auto mt-40">
     <h1 class="text-2xl">Search for the NPC</h1>
-    <input class="flex-1 bg-gradient-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600 p-2 my-4 w-full" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
-    <NpcsView {source} {paginationSettings}/>
+    <input class="flex-1 bg-linear-to-r from-slate-500 from-20% via-zinc-300 via-40% to-stone-600 p-2 my-4 w-full" placeholder="Search for info" bind:value={filter} on:input={(i) => filterContent(filter)} >
+    <NpcsView {source} bind:page bind:limit bind:count/>
 
 </div>
 <div class="">

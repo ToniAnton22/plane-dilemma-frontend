@@ -1,6 +1,6 @@
 <script>
 	import '../../../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppBar } from '@skeletonlabs/skeleton-svelte';
 
 </script>
 

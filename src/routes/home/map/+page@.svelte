@@ -1,16 +1,15 @@
 <script>
 	import mapboxgl, { Map } from 'mapbox-gl';
-	import { onMount, onDestroy } from 'svelte';
 	import { addFilterClasses } from '$lib/addFilterClasses';
-	import { goto, afterNavigate } from '$app/navigation';
-	import { ListBox, ListBoxItem, getModalStore } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
+	import TownDetails from '$lib/components/TownDetails.svelte';
 
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
-	import { get } from 'svelte/store';
-	export let data; // Assuming this is the prop received from load
-	let playerState = false;
-	let groupTrack = [];
-	let coordinatesPlayers = [];
+	let { data, mapContainer } = $props(); // Assuming this is the prop received from load
+	let playerState = $state(false);
+	let groupTrack = $state([]);
+	let townView = $state(false);
+	let selectedTown = $state({});
+	let coordinatesPlayers = $state([]);
 	function getTheme(name) {
 		if (name.includes('Kalahari')) {
 			return '#cad0db';
@@ -32,9 +31,13 @@
 		}
 	}
 	function latest() {
-        if(map){
-            map.jumpTo({center: coordinatesPlayers[0].coordinates.slice(coordinatesPlayers[0].coordinates.length -1)[0]})
-        }
+		if (map) {
+			map.jumpTo({
+				center: coordinatesPlayers[0].coordinates.slice(
+					coordinatesPlayers[0].coordinates.length - 1
+				)[0]
+			});
+		}
 	}
 	const getGroupLatestLocation = (cord) => {
 		let trackedCoordinates = [];
@@ -95,20 +98,20 @@
 		});
 	}
 	let playerList = playerNameList();
-	const drawerStore = getDrawerStore();
 	let map;
-	$: playerListToggle = true;
-	export let mapContainer;
-	let lng = -51.378679,
-		lat = -13.319458,
-		zoom = 4;
-	let markers = [];
+	let playerListToggle = $state(true);
+	let lng = $state(-51.378679),
+		lat = $state(-13.319458),
+		zoom = $state(4);
+	let markers = $state([]);
 	let token = import.meta.env.VITE_PUBLIC_TOKEN;
 	let mapStyle = import.meta.env.VITE_MAP_STYLE;
 	// Reactive statement to handle towns updates
 
-	const towns = data?.towns?.towns;
-	const modalStore = getModalStore();
+	const towns = $derived(data?.locations);
+	if (!towns) {
+		throw new Error('Towns data is not available');
+	}
 	function updateMarkers() {
 		// Clear existing markers first
 		markers.forEach((marker) => marker.remove());
@@ -117,15 +120,15 @@
 		// Add new markers
 		towns.forEach((town) => applyClasses(town));
 	}
-	let expandMarker = (town) => {
-		drawerStore.update((currentState) => {
-			return { ...currentState, id: '2', town };
-		});
-	};
+	// let expandMarker = (town) => {
+	// 	drawerStore.update((currentState) => {
+	// 		return { ...currentState, id: '2', town };
+	// 	});
+	// };
 	function applyClasses(town) {
 		let popup = document.createElement('div');
 
-		let popupHtml = addFilterClasses(town, expandMarker);
+		let popupHtml = addFilterClasses(town);
 
 		let el = document.createElement(`div`);
 		let button = document.createElement('button');
@@ -162,10 +165,8 @@
 				.addTo(map);
 		}
 
-		marker.getElement().addEventListener('click', (e) => {
-			drawerStore.update((currentState) => {
-				return { ...currentState, id: '2', town };
-			});
+		marker.getElement('button').addEventListener('click', (e) => {
+			town = town
 		});
 		return markers.push(marker);
 	}
@@ -178,7 +179,7 @@
 	}
 	function getPlayerRoute(e) {
 		let path;
-	
+
 		if (e.target.checked) {
 			switch (e.target.value) {
 				case 'Fennex Stoutwings':
@@ -231,14 +232,7 @@
 			map.removeSource(e.target.value);
 		}
 	}
-	function addCityForm() {
-		let modal = {
-			type: 'component',
-			component: 'addCityModal',
-			meta: { lat, lng }
-		};
-		modalStore.trigger(modal);
-	}
+
 	onMount(() => {
 		mapboxgl.accessToken = import.meta.env.VITE_PUBLIC_TOKEN;
 		map = new Map({
@@ -255,12 +249,14 @@
 		});
 
 		updateMarkers();
+		return () => {
+			if (map) {
+				map.remove();
+			}
+		};
 	});
 	if (map) {
 	}
-	onDestroy(() => {
-		if (map) map.remove();
-	});
 </script>
 
 <div>
@@ -271,33 +267,40 @@
 		<div class="map" bind:this={mapContainer} />
 	</div>
 </div>
+{#if townView}
+	<div>
+		<TownDetails town={selectedTown}/>
+	</div>
+{/if}
 
-<div class="absolute right-0 h-[40rem] w-fit bg-transparent overflow-scroll z-20">
+<div class="absolute right-0 h-160 w-fit bg-transparent overflow-scroll z-20">
 	<div class="flex flex-row-reverse w-full h-full">
 		<div
-			class="grid grid-cols-2 gap-2 h-full w-64 variant-glass-surface items-center px-4 text-black rounded-l-full rounded-t-none mb-20 pb-20 overflow-scroll"
+			class="grid grid-cols-2 gap-2 h-full w-64 items-center px-4 text-black rounded-l-full rounded-t-none mb-20 pb-20 overflow-scroll"
 		>
-			<button class="btn variant-filled-primary rounded-full"> Legend </button>
+			<button class="btn preset-filled-primary-500 rounded-full"> Legend </button>
 			<label> Toggles Legend </label>
-			<button class="btn variant-filled-primary rounded-full"> Map Filter </button>
+			<button class="btn preset-filled-primary-500 rounded-full"> Map Filter </button>
 			<label> Select map filter </label>
-			<button class="btn variant-filled-error rounded-full"> Play </button>
+			<button class="btn preset-filled-error-500 rounded-full"> Play </button>
 			<label> Starts Animation </label>
-			<button class="btn variant-filled-success rounded-full" on:click={latest}> Locate </button>
+			<button class="btn preset-filled-success-500 rounded-full" onclick={latest}> Locate </button>
 			<label> View most relevant story location </label>
-			<button class="btn variant-filled-tertiary rounded-full" on:click={playerListOn}>
+			<button class="btn preset-filled-tertiary-500 rounded-full" onclick={playerListOn}>
 				Player
 			</button>
 			<label> View Character's Journey </label>
-			<button class="btn variant-filled-warning rounded-full" on:click={addCityForm}> Add </button>
+			<button class="btn preset-filled-warning-500 rounded-full" onclick={addCityForm}>
+				Add
+			</button>
 			<label> Adds new location </label>
 		</div>
 		{#if !playerListToggle}
 			<ListBox
 				multiple
-				class="h-full w-fit variant-ghost-surface z-10 grid grid-cols-2 gap-4 items-center"
+				class="h-full w-fit preset-tonal-surface border border-surface-500 z-10 grid grid-cols-2 gap-4 items-center"
 				rounded="rounded-3xl"
-				active="variant-filled-success"
+				active="preset-filled-success-500"
 			>
 				{#each data?.towns?.players as player}
 					<ListBoxItem
@@ -305,9 +308,9 @@
 						name={player?.name}
 						value={player?.name}
 						class="w-fit overflow-hidden"
-						on:change={(e) => getPlayerRoute(e)}
+						onchange={(e) => getPlayerRoute(e)}
 					>
-						<div class="w-32 rounded-full variant-filled-secondary">
+						<div class="w-32 rounded-full preset-filled-secondary-500">
 							<img src={player?.image} alt={player?.name} class="w-32 h-32 rounded-full" />
 							<div class="card-footer text-white text-center">{player?.name}</div>
 						</div>

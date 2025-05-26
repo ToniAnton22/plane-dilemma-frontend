@@ -1,18 +1,15 @@
 <script>
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import DrawerData from '$lib/components/DrawerData.svelte';
 	import Mist from '$lib/components/Mist.svelte';
 	import {goto, invalidateAll} from "$app/navigation"
 	import UnmuteModal from '$lib/components/UnmuteModal.svelte';
-	import { onMount } from 'svelte';
 	import { audioData } from '$lib/data/audioData.js';
-	import { playTrack, audioMuted } from '$lib/helpers/setAudio.js';
 	import { themeSong } from '$lib/themeSong.js';
-	import { getModalStore } from '@skeletonlabs/skeleton';
-	export let data;
-	let visible = true;
+
+	let visible = $derived(true);
+	let {data} = $props();
 	const toggleVis = () => {
 		if (data) {
 			visible = false;
@@ -24,27 +21,15 @@
 			visible = true;
 		}
 	};
-	const modalComponent = { ref: UnmuteModal };
-	const modal = {
-		type: 'component',
-		component: modalComponent
-	};
-	const modalStore = getModalStore();
-	if ($audioMuted) {
-		modalStore.trigger(modal);
-	}
-
-	onMount(() => {
-		playTrack(audioData[$themeSong].url);
+	
+	$effect(() => {
+		//playTrack(audioData[$themeSong].url);
 	});
 	const sendToContent= (url) =>{
 		goto('/home')
 	}
 	const numberof= 2
-	const drawerStore = getDrawerStore();
-	const settings = { id: '0' };
 
-	drawerStore.set(settings);
 </script>
 
 <div
@@ -62,7 +47,7 @@ brightness-[0.6] avatar-animation"
 			on:click={() =>sendToContent('/home')}
 		>
 			<p
-				class="flex bg-clip-text h-full text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase text-[1vw] items-center justify-center"
+				class="flex bg-clip-text h-full text-transparent bg-linear-to-r from-indigo-300 to-gray-300 uppercase text-[1vw] items-center justify-center"
 			>
 				Lost history of Plane Dilemma
 			</p>
@@ -74,7 +59,7 @@ brightness-[0.6] avatar-animation"
 					class="grid w-full h-full items-center justify-center p-10 m-4"
 				>
 					<h1
-						class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-gray-300 uppercase text-5xl text-center"
+						class="bg-clip-text text-transparent bg-linear-to-r from-indigo-300 to-gray-300 uppercase text-5xl text-center"
 					>
 						"Roll the dice of fate, for in the realm of imagination, every outcome is a story
 						waiting to be told."

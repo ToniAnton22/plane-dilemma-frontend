@@ -1,77 +1,77 @@
 <script>
-    import {getTheme} from "$lib/helpers/getBackgroundTheme.js"
-	import { onDestroy } from "svelte";
-    import Book from "./Book.svelte";
-    export let players;
-    export let navigate
+	import Book from './Book.svelte';
+	import { getTheme } from '$lib/helpers/getBackgroundTheme.js';
+	import PlayerView from './PlayerView.svelte';
+	import { derived } from 'svelte/store';
+	import { page } from '$app/state';
+	import { Path } from 'leaflet';
 
-    let active = 'data-active'
-    const changeImage = (i,player) => {
-        return `carousel-item-${i}`
-    }
+	let { data } = $props();
 
-    let backgroundCarouselTheme
-    let playerTextTheme
-    let background = "/images/background/Kalahari-bg.webp"
-    let playerData
+	let active = $state('data-active');
+	const changeImage = (i, player) => {
+		return `carousel-item-${i}`;
+	};
 
-    function changeTheme(player){
-        let themes = getTheme(player)
-        backgroundCarouselTheme = themes.theme
-        playerTextTheme = themes.textTheme
-        background = themes.background
-        playerData=player
-    }
-    
+	let playersData = $derived.by(() => {
+		return data.players;
+	});
+
+	let extractedIdFromUrl = $derived.by(() => {
+		if(!page.url.hash){
+			return 0
+		}
+		const regex = /(?<=-)[-\d]/g;
+		const match = page.url.hash.match(regex);
+		return match[0];
+	});
+
+	let playerShown = $derived(playersData[parseInt(extractedIdFromUrl)]);
+	let details = $derived({
+		background: '',
+		playerTextTheme: '',
+		backgroundCarouselTheme: '',
+		playerShown
+	});
+
+	function changeTheme(player) {
+		let themes = getTheme(player);
+		details = {
+			background: themes.background,
+			playerTextTheme: themes.textTheme,
+			backgroundCarouselTheme: themes.theme,
+			playerShown: player
+		};
+	}
+	$effect(() => {
+		changeTheme(playerShown);
+	});
 </script>
 
-<Book>
-    <div class="relative h-full {background ? `bg-[url('${background}')] bg-cover` : `${backgroundCarouselTheme}`}" style="{background ? `background-image: url('${background}')` : "background-color: url('/images/background/Fennex-bg.webp');"}" slot="page-two">
-        <div class="absolute badge h-[10vh] lg:-top-[1vh] -top-[3.5vh] inset-x-0 p-4 mx-auto z-40 text-black">
-            <div class="grid grid-cols-6 gap-4 w-full justify-items-center">
-                {#each players as player, i } 
-                <a href={`#carousel-item-${i}`} class="transition h-[10vh] w-[4vw] ease-in delay-150 duration-200 opacity-75 border hover:opacity-100 hover:scale-110 rounded-b-full bg-cover bg-center" style="background-image:url({player?.image})" on:click={() =>changeTheme(player)}>
-                </a>
-                {/each} 
-            </div>
-        </div>    
-        <div class="h-full flex flex-col items-center variant-soft-surface rounded-lg text-center gap-10 justify-center variant-ghost-surface">
-            {#if !playerData}
-                <p class="p-4 mt-20">{players[0]?.name}</p>
-                <p class="w-1/2">{players[0]?.background.split(".")[0]}....</p>
-            {/if}
-            {#if playerData}
-                <p class="p-4 mt-20 variant-filled-surface rounded-lg">{playerData?.name}</p>
-                <p class="w-1/2 p-4 variant-filled-surface rounded-lg">{playerData?.background.split(".")[0]}....</p>
-            {/if}
-            
-        </div>
-    </div>
-    <section class="w-full mx-auto" slot="page-one">
-        <ul class="flex flex-row snap-x snap-mandatory overflow-x-auto h-screen container-snap">
-            {#each players as player,i }
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <!-- svelte-ignore a11y-no-static-element-interactions -->
-                <a id="carousel-item-{i}" class="shrink-0 snap-center bg-cover bg-center bg-no-repeat w-full" style="background-image:url({player?.image})" on:click={() => navigate(player)}>
-                
-                </a>
-            {/each}
-        </ul>
-    </section>
-
-</Book>
-
+<div
+	class="absolute badge h-[10vh] lg:-top-[1vh] -top-[3.5vh] inset-x-0 p-4 mx-auto z-40 text-black"
+>
+	<div class="grid grid-cols-6 gap-4 w-full justify-items-center">
+		{#each playersData as player, i}
+			<a
+				href="#carousel-item-{i}"
+				class="transition h-[10vh] w-[4vw] ease-in delay-150 duration-200 opacity-75 border hover:opacity-100 hover:scale-110 rounded-b-full bg-cover bg-center"
+				style="background-image:url({player?.image})"
+				onclick={() => changeTheme(player)}
+			>
+			</a>
+		{/each}
+	</div>
+</div>
+<PlayerView {data} bind:details />
 
 <style lang="scss">
-    .container-snap::-webkit-scrollbar{
-        display: none;
-    }
-    
-    .container-snap{
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+	.container-snap::-webkit-scrollbar {
+		display: none;
+	}
 
+	.container-snap {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
 </style>
-
-

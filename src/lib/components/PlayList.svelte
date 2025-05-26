@@ -1,7 +1,7 @@
 <script>
 	import { audioData } from '../data/audioData.js';
 	
-	let listIsShowing = false;
+	let listIsShowing = $state(false);
 	
 	const showPlayList = () => listIsShowing = !listIsShowing
 </script>
@@ -10,7 +10,7 @@
 <section id="playlist-cont">
 	<button class="accordion"
 					class:active={listIsShowing}
-					on:click={showPlayList}>&#9776; Playlist</button>
+					on:click={showPlayList}>☰ Playlist</button>
 
 	<ul class:show-list={listIsShowing}>
 		{#each audioData as {name, url}, i}

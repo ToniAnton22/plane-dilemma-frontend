@@ -1,28 +1,40 @@
-import { getItem,setItem } from '$lib/storage.js'
-import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
-import { redirect } from '@sveltejs/kit'
+export const ssr = false
+import {getItem, setItem} from "$lib/storage.js" 
+import { loading } from "$lib/helpers/loading.svelte.js";
+
 export const load = ({fetch}) =>{
-    const fetchPlayers = async() =>{
-        let players = getItem('players')
+  loading.value = true
+  const sessionStoreInitialized = getItem('players');
+      if (sessionStoreInitialized) {
+        loading.value = false
+        console.log("Session storage already initialized, skipping database check.");
+ 
+        return {
+          players: sessionStoreInitialized,
+        };
+      }
       
-        if(!players || players?.message=="Internal Error" || players?.errorType == "LambdaTimeout"){
-
-             
-            const res = await fetchWithRetry('/api/getplayers',8000,5,fetch)
-            
-            players = res
-            setItem('players',players)
+      async function checkDatabase(){
+        try{
+          loading.message=`Loading in server...`
+          const data = await(await fetch('/api/getDetails')).json()
+         if(data || data != 'Error: Error: Request in progress'){
+            for(const property in data){
+              setItem(property,data[property].value)
+            }
+            loading.value = false
+            return {
+              players: data.players
+            }
+          }
+          
+          loading.value = true
+          return {open:false}
+        }catch(e){
+          console.log("Error in checkDatabase",e)
+          loading.value = true
+          return {open:false}
         }
-        if(players?.errorType == "LambdaTimeout"){
-            setTimeout(() => fetchPlayers(),3000)
-        }
-
-        if(!players){
-            redirect(302,'/')
-        }
-        return players
-    }
-    return{
-        players:fetchPlayers()
-    }
-}
+      }
+    return checkDatabase()
+};

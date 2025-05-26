@@ -1,5 +1,5 @@
 <script>
-    import { TabGroup, Tab, TabAnchor } from '@skeletonlabs/skeleton';
+    import { Tab, Tabs } from '@skeletonlabs/skeleton-svelte';
 
     export let data;
     let tabSet = 2;
@@ -16,7 +16,7 @@
 <img src='/images/npcpage.png' class="absolute bg-contain bg-no-repeat bg-center mx-auto w-full h-full bg-scroll opacity-75 brightness-75 blur-sm -z-20" alt={data?.npc?.name}/>
 <main class="flex lg:h-full h-screen lg:flex-row flex-col-reverse space-x-2 overflow-scroll">
     <header class="lg:mx-10 my-16 lg:w-1/2 w-full relative">
-        <div class="mx-auto card w-96 h-96 bg-cover bg-center bg-no-repeat rounded-full border-[10px] shadow-cyan-200 border-cyan-600" style="background-image:url({data?.npc?.image})">
+        <div class="mx-auto card w-96 h-96 bg-cover bg-center bg-no-repeat rounded-full border-10 shadow-cyan-200 border-cyan-600" style="background-image:url({data?.npc?.image})">
         </div>
         <h1 class="mx-auto text-4xl text-center w-96 font-bold font-serif p-4 m-6">
             {data?.npc?.name}
@@ -28,7 +28,7 @@
 
     <article class="lg:w-1/2 w-full md:text-xl break-words">
         <div>
-            <TabGroup regionList="lg:justify-start justify-center"  regionPanel="justify-center">
+            <Tabs regionList="lg:justify-start justify-center"  regionPanel="justify-center">
                 <Tab bind:group={tabSet} name="info" value={0}>
                     <svelte:fragment slot="lead">Info</svelte:fragment>
                     <span>About {data?.npc?.name}</span>
@@ -57,7 +57,7 @@
                         
                     {/if}
                 </svelte:fragment>
-            </TabGroup>
+            </Tabs>
         </div>
     </article>
 </main>

@@ -8,7 +8,6 @@ export async function GET() {
             'X-API-KEY':X_API_KEY
           }
         })
-        console.log("I arrive here " + response.status)
       if(response?.status == 502 || response?.status == 504 || response?.status==500){
         await new Promise(resolve => setTimeout(resolve,delay))
         return dataFetch(retires-1, delay)

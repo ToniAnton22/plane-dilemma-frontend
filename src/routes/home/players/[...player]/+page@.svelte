@@ -1,70 +1,64 @@
 <script>
-	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
+	import { Tab, Tabs } from '@skeletonlabs/skeleton-svelte';
 
 	import { audioData } from '$lib/data/audioData.js';
 
 	import { themeSong } from '$lib/themeSong.js';
-	import { onDestroy, onMount } from 'svelte';
-
-	import { playTrack, stopTrack } from '$lib/helpers/setAudio.js';
 	import DrawerData from '$lib/components/DrawerData.svelte';
 	import Book from '$lib/components/Book.svelte';
 
-	export let data;
-	export let tabSet = 0;
-	export let theme;
-	export let textTheme;
-	export let splitSummary = data?.player?.background;
+	let {data, tabSet, theme, textTheme, splitSummary} = $props();
 
 	const themeMap = new Map();
 	themeMap.set('Vanelis', {
 		theme:
-			'bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-stone-900',
+			'bg-linear-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-stone-900',
 		textTheme:
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-200 to-blue-200'
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-slate-200 to-blue-200'
 	});
 
 	if (data?.player?.name === 'Vanelis') {
 		theme =
-			'bg-gradient-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-sky-900';
+			'bg-linear-to-br from-black via-slate-500 to-cyan-800 w-full h-full md:border-l-4 md:border-sky-900';
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-600 ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-slate-400 to-blue-600 ';
 		themeSong.set(4);
 	} else if (data?.player?.name === 'Ng`ombe Radolack') {
 		theme =
-			'bg-gradient-to-tr from-stone-900 via-orange-950 to-yellow-800 w-full h-full md:border-l-4 md:border-stone-900';
+			'bg-linear-to-tr from-stone-900 via-orange-950 to-yellow-800 w-full h-full md:border-l-4 md:border-stone-900';
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-200 to-stone-100 ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-orange-200 to-stone-100 ';
 		themeSong.set(5);
 	} else if (data?.player?.name === 'Jamond Carter') {
 		theme =
-			'bg-gradient-to-br from-indigo-900 via-rose-950 to-blue-800 w-full h-full md:border-l-4 md:border-violet-400';
+			'bg-linear-to-br from-indigo-900 via-rose-950 to-blue-800 w-full h-full md:border-l-4 md:border-violet-400';
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-blue-400 ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-rose-500 to-blue-400 ';
 		themeSong.set(3);
 	} else if (data?.player?.name === 'Kalahari') {
-		theme = `bg-gradient-to-b from-gray-500 via-rose-100 to-slate-800 w-full h-full md:border-l-4 md:border-gray-400`;
+		theme = `bg-linear-to-b from-gray-500 via-rose-100 to-slate-800 w-full h-full md:border-l-4 md:border-gray-400`;
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-amber-400  ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-yellow-500 to-amber-400  ';
 		themeSong.set(6);
 	} else if (data?.player?.name === 'Fennex Stoutwings') {
 		theme =
-			'bg-gradient-to-t from-amber-700 via-orange-700 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden';
+			'bg-linear-to-t from-amber-700 via-orange-700 to-red-700 w-full h-full md:border-l-4 md:border-red-900 overflow-hidden';
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-orange-100 to-amber-100 ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-orange-100 to-amber-100 ';
 		themeSong.set(7);
 	} else if (data?.player?.name === 'Bastion') {
 		theme =
-			'bg-gradient-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900';
+			'bg-linear-to-r from-cyan-900 via-slate-600 to-zinc-800 w-full h-full border-0 md:border-l-4 md:border-stone-900';
 		textTheme =
-			'font-serif text-4xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-neutral-100 ';
+			'font-serif text-4xl bg-clip-text text-transparent bg-linear-to-r from-amber-500 to-neutral-100 ';
 		themeSong.set(2);
 	}
 
-	onMount(() => {});
-	onDestroy(() => {
-		stopTrack();
-		themeSong.set(0);
+	$effect(() => {
+		return () => {
+			//stopTrack();
+			themeSong.set(0);
+		};
 	});
 </script>
 
@@ -86,9 +80,7 @@
 <Book>
 	<div class="flex flex-row flex-wrap p-2 h-1/3 text-black" slot="page-one">
 		<div class="m-[3vw] flex flex-row flex-wrap w-full">
-			<div
-				class="w-1/2 h-full"
-			>
+			<div class="w-1/2 h-full">
 				<img src={data?.player?.image} class="w-fit h-fit" />
 			</div>
 			<div class="flex w-1/2 flex-col mx-auto justify-center items-center h-1/2">
@@ -107,10 +99,10 @@
     "
 		slot="page-two"
 	>
-		<TabGroup
+		<Tabs
 			justify="justify-center"
-			active="variant-filled-primary"
-			hover="hover:variant-soft-primary"
+			active="preset-filled-primary-500"
+			hover="hover:preset-tonal-primary"
 			flex="flex-1 lg:flex-none"
 			rounded="rounded-full"
 			border="border-0"
@@ -160,7 +152,7 @@
 					Friends, Enemies
 				{/if}
 			</svelte:fragment>
-		</TabGroup>
+		</Tabs>
 	</div>
 </Book>
 

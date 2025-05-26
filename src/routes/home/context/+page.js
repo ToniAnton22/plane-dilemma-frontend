@@ -1,31 +1,40 @@
+export const ssr = false
+import {getItem, setItem} from "$lib/storage.js" 
+import { loading } from "$lib/helpers/loading.svelte.js";
 
-import {setItem, getItem} from "$lib/storage.js"
-import { fetchWithRetry } from '$lib/helpers/fetchWithRetry.js'
-import { redirect } from "@sveltejs/kit"
-export const load = (({fetch}) =>{
-    const getContext = async () =>{
-    
-        let data = getItem('context')
-   
-        if(!data || data?.message=="Internal Error"){
+export const load = ({fetch}) =>{
+  loading.value = true
+  const sessionStoreInitialized = getItem('context');
+      if (sessionStoreInitialized) {
+        loading.value = false
+        console.log("Session storage already initialized, skipping database check.");
+        return {
+          data: sessionStoreInitialized
+       }
+      }
       
-            var res = await fetchWithRetry("/api/getContext",8000,5,fetch)
+      async function checkDatabase(){
+        try{
+          loading.message=`Loading in server...`
+          const data = await(await fetch('/api/getDetails')).json()
 
-            data = res
-            setItem('context',res)
+          if(data || data != 'Error: Error: Request in progress'){
+            for(const property in data){
+              setItem(property,data[property].value)
+            }
+            loading.value = false
+            return {
+              data: data.context
+            }
+          }
+          
+          loading.value = true
+          return {open:false}
+        }catch(e){
+          console.log("Error in checkDatabase",e)
+          loading.value = true
+          return {open:false}
         }
-        if(data?.errorType == "LambdaTimeout"){
-            setTimeout(() => getContext(),3000)
-        }
-
-        if(!data){
-            redirect(302,'/')
-        }
-
-        return data
-    }
-
-    return{
-        context: getContext()
-    }
-})
+      }
+    return checkDatabase()
+};

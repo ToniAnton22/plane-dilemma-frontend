@@ -1,37 +1,35 @@
 <script>
-	import { Paginator } from '@skeletonlabs/skeleton';
+	import { Pagination } from '@skeletonlabs/skeleton-svelte';
+	import NpcPage from './NpcPage.svelte';
 
-	export let source;
-	export let mapped;
+	let { source, mapped = true, limit, page, count } = $props();
+
+	let sourceData = $derived.by(() => {
+		if (source) {
+			return source.slice((page - 1) * limit, page * limit);
+		}
+		return [];
+	});
 	if (mapped) {
 	}
-	export let paginationSettings;
-	$: paginatedSource = source.slice(
-		paginationSettings.page * paginationSettings.limit,
-		paginationSettings.page * paginationSettings.limit + paginationSettings.limit
-	);
 </script>
 
 <div class="flex flex-row space-x-20">
-	{#each paginatedSource as npc}
-		<a
-			href="/home/npcs/npc/details?detail={encodeURIComponent(JSON.stringify(npc))}"
-			class="card flex p-4 w-96 h-96 bg-cover bg-center bg-no-repeat border-2 border-black rounded-2xl shadow-2xl"
-			style="background-image:url({npc?.image})"
-		>
-			<div class="flex justify-end items-end aling-bottom">
-				<h1 class="text-2xl text-white shadow-2xl text=shadow">{npc?.name}</h1>
-			</div>
-		</a>
+	{#each sourceData as npc}
+
+		<NpcPage {npc}/>
 	{/each}
 </div>
 <div class="table-container text-shadow text-zinc-300">
 	<!-- Native Table Element -->
 
-	<Paginator
-		bind:settings={paginationSettings}
-		showFirstLastButtons={true}
-		showPreviousNextButtons={false}
+	<Pagination
+		data={source}
+		{count}
+		{page}
+		onPageChange={(e) => (page = e.page)}
+		onPageSizeChange={(e) => (size = e.pageSize)}
+		pageSize={limit}
 		class="flex-initial"
 	/>
 </div>
