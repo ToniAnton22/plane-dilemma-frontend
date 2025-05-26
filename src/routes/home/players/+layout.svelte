@@ -1,11 +1,11 @@
 <script>
-	import '../../../app.postcss';
+	import '../../../app.css';
 	import { AppBar } from '@skeletonlabs/skeleton-svelte';
 </script>
 
 <!-- App Shell -->
 <AppShell>
-		<!-- App Bar -->
+	<!-- App Bar -->
 	<!-- Page Route Content -->
 	<slot />
 </AppShell>
