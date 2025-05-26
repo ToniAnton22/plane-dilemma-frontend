@@ -1,12 +1,10 @@
 <script>
-	import { Accordion } from '@skeletonlabs/skeleton-svelte';
-	import { Modal } from '@skeletonlabs/skeleton-svelte';
 	import ModalComponent from '$lib/components/ModalComponent.svelte';
 
 	const getGridDimensions = (cell) => {
 		return {
 			rows: Math.floor(window.innerHeight / cell / 2),
-			cols: Math.floor(window.innerWidth / cell)
+			cols: Math.floor(window.innerWidth / cell/1.5)
 		};
 	};
 

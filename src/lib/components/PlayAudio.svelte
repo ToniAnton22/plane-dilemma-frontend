@@ -1,5 +1,4 @@
 <script>
- import { derived } from 'svelte/store';
   import { browser } from '$app/environment';
   import DrawerData from './DrawerData.svelte';
 

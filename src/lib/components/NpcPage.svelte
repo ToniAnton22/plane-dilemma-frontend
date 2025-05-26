@@ -1,5 +1,4 @@
 <script>
-	import Page from '../../routes/home/sessions/+page.svelte';
 	import Book from './Book.svelte';
 
 	let { npc } = $props();

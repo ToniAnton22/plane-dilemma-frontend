@@ -2,9 +2,7 @@
 	import Book from './Book.svelte';
 	import { getTheme } from '$lib/helpers/getBackgroundTheme.js';
 	import PlayerView from './PlayerView.svelte';
-	import { derived } from 'svelte/store';
 	import { page } from '$app/state';
-	import { Path } from 'leaflet';
 
 	let { data } = $props();
 
