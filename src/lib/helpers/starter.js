@@ -4,7 +4,7 @@ const requestManager = new RequestManager(new Map(), new Map());
 
 export const starter = async (DB_HOST, X_API_KEY) => {  
   const entities = [
-      'CampaignLog', 'Choice', 'context', 'DialogueLog', 'EventSchedule', 'Faction', 'Interaction', 'Item', 'LinkedEvent', 'LocationNpc', 'locations', 'Note', 'npcs', 'Party', 'PartyMembers', 'players', 'QuestReward', 'Quest', 'Relationship', 'Resource', 'Reward', 'SessionEvent', 'session-npcs', 'SessionPlayer', 'summary', 'Tracking', 'VisibilityTypes'
+      'CampaignLog', 'Choice', 'context', 'DialogueLog', 'Events', 'Faction', 'Interaction', 'Item', 'LocationNpc', 'locations', 'Note', 'npcs', 'Party', 'PartyMembers', 'players', 'QuestReward', 'Quest', 'Relationship', 'Resource', 'Reward', 'session-npcs', 'SessionPlayer', 'summary', 'Tracking', 'VisibilityTypes'
   ];
   const CHUNK_SIZE = 5;
   const batches = []
@@ -50,29 +50,27 @@ export const starter = async (DB_HOST, X_API_KEY) => {
       choices: results[1],
       context: results[2],
       dialogueLog: results[3],
-      eventSchedules: results[CHUNK_SIZE],
+      events: results[4],
       factions: results[5],
       interactions: results[6],
       items: results[7],
-      linkedEvents: results[8],
-      locationNpcs: results[9],
-      locations: results[10],
-      notes: results[11],
-      npcs: results[12],
-      parties: results[13],
-      partyMembers: results[14],
-      players: results[15],
-      questRewards: results[16],
-      quests: results[17],
-      relationships: results[18],
-      resources: results[19],
-      rewards: results[20],
-      sessionEvents: results[21],
-      sessionNpcs: results[22],
-      sessionPlayers: results[23],
-      sessionSummaries: results[24],
-      tracking: results[25],
-      visibilityTypes: results[26]
+      locationNpcs: results[8],
+      locations: results[9],
+      notes: results[10],
+      npcs: results[11],
+      parties: results[12],
+      partyMembers: results[13],
+      players: results[14],
+      questRewards: results[15],
+      quests: results[16],
+      relationships: results[17],
+      resources: results[18],
+      rewards: results[19],
+      sessionNpcs: results[20],
+      sessionPlayers: results[21],
+      sessionSummaries: results[22],
+      tracking: results[23],
+      visibilityTypes: results[24]
   };
   
 };
