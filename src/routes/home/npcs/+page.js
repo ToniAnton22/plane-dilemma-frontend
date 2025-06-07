@@ -5,7 +5,7 @@ import { loading } from "$lib/helpers/loading.svelte.js";
 export const load = ({fetch}) =>{
   loading.value = true
   const sessionStoreInitialized = getItem('npcs');
-      if (sessionStoreInitialized) {
+      if (sessionStoreInitialized && Object.values(sessionStoreInitialized).length > 0) {
         loading.value = false
         console.log("Session storage already initialized, skipping database check.");
         return {
