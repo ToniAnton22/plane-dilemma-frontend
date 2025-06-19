@@ -3,7 +3,11 @@ import {getItem, setItem} from "$lib/storage.js"
 import { loading } from "$lib/helpers/loading.svelte.js";
 
 export const load = ({fetch}) =>{
-  loading.value = true
+    if(loading.isMaintanance){
+      loading.value = true
+      loading.message = "Database under maintenance, if you need details on my abilities contact me at frincucristiananton@gmail.com"
+    return
+  }
   const sessionStoreInitialized = getItem('npcs');
       if (sessionStoreInitialized && Object.values(sessionStoreInitialized).length > 0) {
         loading.value = false
@@ -15,11 +19,13 @@ export const load = ({fetch}) =>{
         try{
           loading.message=`Loading in server...`
           const data = await(await fetch('/api/getDetails')).json()
-        
+          const printData = []
           if(data || data != 'Error: Error: Request in progress'){
             for(const property in data){
+              printData.push({[property]:data[property].value})
               setItem(property,data[property].value)
             }
+            console.log(printData)
             loading.value = false
             return {open:true}
           }

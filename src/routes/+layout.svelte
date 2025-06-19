@@ -9,7 +9,7 @@
 	import { themeSong } from '$lib/themeSong.js';
 	import TownDetails from '$lib/components/TownDetails.svelte';
 	import { loading } from '$lib/helpers/loading.svelte.js';
-	
+
 	let { children } = $props();
 	let town;
 	let themesong = $derived.by(() => {
@@ -24,12 +24,14 @@
 	// }else {
 	// 	$drawerStore.id = stage
 	// }
-
-
 </script>
 
-{#if loading.value}
+{#if loading.isMaintanance}
 	<LoadingScreen />
+{:else if loading.value}
+	<LoadingScreen />
+{:else}
+	{@render children()}
 {/if}
 <!-- <Drawer position="top" height="h-full" border="border-b-4 rounded-lg border-l border-r" class="relative h-2/3">
 	<button class="absolute w-6 h-6 md:w-12 md:h-12 m-2 md:m-6 hover:pointer z-40 top-0 right-0 border bg-red-500 rounded-full opacity-70" on:click={drawerStore.close}>
@@ -54,5 +56,3 @@
 <!-- <Modal components={modalRegistry} /> -->
 
 <!-- <Mist /> -->
-
-{@render children()}

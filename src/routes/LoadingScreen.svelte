@@ -8,15 +8,15 @@
 </script>
 
 {#if true}
-    <div class="preset-tonal-tertiary absolute w-screen h-screen z-9999 inset-0">
+    <div class="preset-tonal-tertiary absolute w-screen h-screen inset-0">
         <div class="w-full h-full relative">
-            <p class="grid justify-center aling-center items-center self-center h-full text-3xl animate-pulse">{loading.message}</p>
+            <p class="grid justify-center aling-center items-center self-center h-full text-3xl animate-pulse">{loading.message ? loading.message : "Under maintanance, stay cool!"}</p>
         </div>
     </div>
 {/if}
 
 {#if false}
-    <div class="preset-tonal-tertiary absolute w-screen h-screen z-9999 inset-0">
+    <div class="preset-tonal-tertiary absolute w-screen h-screen inset-0">
         <div class="w-full h-full relative">
             <p class="grid justify-center aling-center items-center self-center h-full text-3xl animate-pulse">{message}</p>
         </div>

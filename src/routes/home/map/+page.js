@@ -3,6 +3,11 @@ import {getItem, setItem} from "$lib/storage.js"
 import { loading } from "$lib/helpers/loading.svelte.js";
 
 export const load = ({fetch}) =>{
+    if(loading.isMaintanance){
+      loading.value = true
+      loading.message = "Database under maintenance, if you need details on my abilities contact me at frincucristiananton@gmail.com"
+    return
+  }
   loading.value = true
   const sessionStoreInitialized = getItem('locations');
       if (sessionStoreInitialized && Object.values(sessionStoreInitialized).length > 0) {
