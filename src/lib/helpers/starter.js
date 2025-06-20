@@ -6,7 +6,6 @@ export const starter = async (DB_HOST, X_API_KEY) => {
   const entities = [
 	/* core & meta */
 	'Campaign',
-	'User',
 	'VisibilityType',
 
 	/* narrative timeline */
@@ -92,56 +91,56 @@ export const starter = async (DB_HOST, X_API_KEY) => {
   }
 
 
-  return {
-    /* core & meta (0-2) */
-    campaigns:               results[0],
-    users:                   results[1],
-    visibilityTypes:         results[2],
+return {
+	/* ─── core & meta (0-1) ─── */
+	campaigns:              results[0],
+	visibilityTypes:        results[1],
 
-    /* narrative timeline (3-7) */
-    campaignLog:             results[3],
-    sessionSummaries:        results[4],
-    contexts:                 results[5],
-    dialogueLogs:             results[6],
-    trackings:                results[7],
+	/* ─── narrative timeline (2-6) ─── */
+	campaignLog:            results[2],
+	sessionSummaries:       results[3],
+	contexts:               results[4],
+	dialogueLogs:           results[5],
+	trackings:              results[6],
 
-    /* choices & interactions (8-9) */
-    choices:                 results[8],
-    interactions:            results[9],
+	/* ─── choices & interactions (7-8) ─── */
+	choices:                results[7],
+	interactions:           results[8],
 
-    /* primary entities (10-16) */
-    players:                 results[10],
-    npcs:                    results[11],
-    locations:               results[12],
-    factions:                results[13],
-    items:                   results[14],
-    resources:               results[15],
-    parties:                 results[16],
+	/* ─── primary entities (9-15) ─── */
+	players:                results[9],
+	npcs:                   results[10],
+	locations:              results[11],
+	factions:               results[12],
+	items:                  results[13],
+	resources:              results[14],
+	parties:                results[15],
 
-    /* membership / ownership & links (17-23) */
-    partyMembers:            results[17],
-    itemOwnerships:          results[18],
-    locationNpcs:            results[19],
-    locationContextLinks:    results[20],
-    locationEventLinks:      results[21],
-    entityLinks:             results[22],
-    sessionEntityLinks:      results[23],
+	/* ─── membership / ownership & links (16-22) ─── */
+	partyMembers:           results[16],
+	itemOwnerships:         results[17],
+	locationNpcs:           results[18],
+	locationContextLinks:   results[19],
+	locationEventLinks:     results[20],
+	entityLinks:            results[21],
+	sessionEntityLinks:     results[22],
 
-    /* quests, rewards, events (24-28) */
-    quests:                  results[24],
-    rewards:                 results[25],
-    questRewardLinks:        results[26],
-    questLocationLinks:      results[27],
-    events:                  results[28],
+	/* ─── quests, rewards, events (23-27) ─── */
+	quests:                 results[23],
+	rewards:                results[24],
+	questRewardLinks:       results[25],
+	questLocationLinks:     results[26],
+	events:                 results[27],
 
-    /* relationships (29-30) */
-    relationships:           results[29],
-    relationshipChangeLogs:  results[30],
+	/* ─── relationships (28-29) ─── */
+	relationships:          results[28],
+	relationshipChangeLogs: results[29],
 
-    /* notes (31-32) */
-    notes:                   results[31],
-    noteLinks:               results[32]
-    };
+	/* ─── notes (30-31) ─── */
+	notes:                  results[30],
+	noteLinks:              results[31]
+};
+
 };
 
 const responseDbHandler = async function(url, tries, delay, X_API_KEY) {
