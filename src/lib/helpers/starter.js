@@ -4,8 +4,55 @@ const requestManager = new RequestManager(new Map(), new Map());
 
 export const starter = async (DB_HOST, X_API_KEY) => {  
   const entities = [
-      'CampaignLog', 'Choice', 'context', 'DialogueLog', 'Events', 'Faction', 'Interaction', 'Item', 'LocationNpc', 'locations', 'Note', 'npcs', 'Party', 'PartyMembers', 'players', 'QuestReward', 'Quest', 'Relationship', 'Resource', 'Reward', 'session-npcs', 'SessionPlayer', 'summary', 'Tracking', 'VisibilityTypes'
-  ];
+	/* core & meta */
+	'Campaign',
+	'User',
+	'VisibilityType',
+
+	/* narrative timeline */
+	'CampaignLog',
+	'SessionSummary',
+	'Context',
+	'DialogueLog',
+	'Tracking',
+
+	/* choices & interactions */
+	'Choice',
+	'Interaction',
+
+	/* primary entities */
+	'Player',
+	'Npc',
+	'Location',
+	'Faction',
+	'Item',
+	'Resource',
+	'Party',
+
+	/* membership & polymorphic links */
+	'PartyMember',
+	'ItemOwnership',
+	'LocationNpc',
+	'LocationContextLink',
+	'LocationEventLink',
+	'EntityLink',
+	'SessionEntityLink',
+
+	/* quests, rewards, events */
+	'Quest',
+	'Reward',
+	'QuestRewardLink',
+	'QuestLocationLink',
+	'Event',
+
+	/* relationships */
+	'Relationship',
+	'RelationshipChangeLog',
+
+	/* notes */
+	'Note',
+	'NoteLink'
+];
   const CHUNK_SIZE = 5;
   const batches = []
 
@@ -46,33 +93,55 @@ export const starter = async (DB_HOST, X_API_KEY) => {
 
 
   return {
-      campaignLog: results[0],
-      choices: results[1],
-      context: results[2],
-      dialogueLog: results[3],
-      events: results[4],
-      factions: results[5],
-      interactions: results[6],
-      items: results[7],
-      locationNpcs: results[8],
-      locations: results[9],
-      notes: results[10],
-      npcs: results[11],
-      parties: results[12],
-      partyMembers: results[13],
-      players: results[14],
-      questRewards: results[15],
-      quests: results[16],
-      relationships: results[17],
-      resources: results[18],
-      rewards: results[19],
-      sessionNpcs: results[20],
-      sessionPlayers: results[21],
-      sessionSummaries: results[22],
-      tracking: results[23],
-      visibilityTypes: results[24]
-  };
-  
+    /* core & meta (0-2) */
+    campaigns:               results[0],
+    users:                   results[1],
+    visibilityTypes:         results[2],
+
+    /* narrative timeline (3-7) */
+    campaignLog:             results[3],
+    sessionSummaries:        results[4],
+    contexts:                 results[5],
+    dialogueLogs:             results[6],
+    trackings:                results[7],
+
+    /* choices & interactions (8-9) */
+    choices:                 results[8],
+    interactions:            results[9],
+
+    /* primary entities (10-16) */
+    players:                 results[10],
+    npcs:                    results[11],
+    locations:               results[12],
+    factions:                results[13],
+    items:                   results[14],
+    resources:               results[15],
+    parties:                 results[16],
+
+    /* membership / ownership & links (17-23) */
+    partyMembers:            results[17],
+    itemOwnerships:          results[18],
+    locationNpcs:            results[19],
+    locationContextLinks:    results[20],
+    locationEventLinks:      results[21],
+    entityLinks:             results[22],
+    sessionEntityLinks:      results[23],
+
+    /* quests, rewards, events (24-28) */
+    quests:                  results[24],
+    rewards:                 results[25],
+    questRewardLinks:        results[26],
+    questLocationLinks:      results[27],
+    events:                  results[28],
+
+    /* relationships (29-30) */
+    relationships:           results[29],
+    relationshipChangeLogs:  results[30],
+
+    /* notes (31-32) */
+    notes:                   results[31],
+    noteLinks:               results[32]
+    };
 };
 
 const responseDbHandler = async function(url, tries, delay, X_API_KEY) {
