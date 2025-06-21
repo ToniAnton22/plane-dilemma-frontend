@@ -66,7 +66,7 @@ export const starter = async (DB_HOST, X_API_KEY) => {
               return {};
           }
       } catch (e) {
-          console.log("Error: " + e);
+          console.log(e);
           return {};
       }
   };
@@ -97,7 +97,7 @@ return {
 	visibilityTypes:        results[1],
 
 	/* ─── narrative timeline (2-6) ─── */
-	campaignLog:            results[2],
+	campaignLogs:            results[2],
 	sessionSummaries:       results[3],
 	contexts:               results[4],
 	dialogueLogs:           results[5],
@@ -143,7 +143,7 @@ return {
 
 };
 
-const responseDbHandler = async function(url, tries, delay, X_API_KEY) {
+const responseDbHandler = async function(url, tries, delay, X_API_KEY, type) {
     try {
         if(tries > 0) {
           
@@ -159,14 +159,15 @@ const responseDbHandler = async function(url, tries, delay, X_API_KEY) {
             
             // Using includes for cleaner code
             if([502, 500, 504, 429].includes(response.status)) {
+				console.error(`Error: ${response.statusText} in ${type}`)
                 await new Promise(resolve => setTimeout(resolve, delay));
-                return responseDbHandler(url, tries - 1, delay, X_API_KEY);
+                return responseDbHandler(url, tries - 1, delay, X_API_KEY,type);
             }
         }  
      
         throw new Error(`Request failed with status: ${'No response'}`);
     } catch(e) {
-        console.error("Error:", e);
+        console.error(`Error: ${e} in ${type}`);
         // Re-throw the error to handle it in the calling function
         throw e;
     }
@@ -177,7 +178,7 @@ const databaseQueryHandler = async (type, DB_HOST, X_API_KEY) =>{
 
 
   return await requestManager.throttledRequest(
-    () => responseDbHandler(`${DB_HOST}${type}`,5,6000, X_API_KEY),
+    () => responseDbHandler(`${DB_HOST}${type}`,5,6000, X_API_KEY, type),
     {key: `db-query-${type}`, cacheMs: 30000}
   )
 }
