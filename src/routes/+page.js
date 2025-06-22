@@ -19,13 +19,10 @@ export const load = ({fetch}) =>{
         try{
           loading.message=`Loading in server...`
           const data = await(await fetch('/api/getDetails')).json()
-          const printData = []
           if(data || data != 'Error: Error: Request in progress'){
             for(const property in data){
-              printData.push({[property]:data[property].value})
               setItem(property,data[property].value)
             }
-            console.log(printData)
             loading.value = false
             return {open:true}
           }

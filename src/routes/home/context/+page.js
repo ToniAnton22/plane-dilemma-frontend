@@ -9,7 +9,7 @@ export const load = ({fetch}) =>{
     return
   }
   loading.value = true
-  const sessionStoreInitialized = getItem('context');
+  const sessionStoreInitialized = getItem('contexts');
       if (sessionStoreInitialized && Object.values(sessionStoreInitialized).length > 0) {
         loading.value = false
         console.log("Session storage already initialized, skipping database check.");
