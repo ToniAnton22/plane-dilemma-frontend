@@ -1,4 +1,4 @@
-import {DB_HOST, X_API_KEY} from "$env/static/private"
+import {DB_HOST, DAVE_KEY} from "$env/static/private"
 import { starter } from "$lib/helpers/starter.js";
 
 /** @type {import('./$types').RequestHandler} */
@@ -6,7 +6,7 @@ import { starter } from "$lib/helpers/starter.js";
 export async function GET(){
     async function dataFetch(retires = 3, delay =6000){
 
-      let response = await starter(DB_HOST, X_API_KEY)
+      let response = await starter(DB_HOST, DAVE_KEY)
 
       if(response.status == 502 || response.status == 504){
     

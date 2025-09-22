@@ -2,7 +2,7 @@ import RequestManager from "$lib/helpers/RequestManager.js";
 
 const requestManager = new RequestManager(new Map(), new Map());
 
-export const starter = async (DB_HOST, X_API_KEY) => {  
+export const starter = async (DB_HOST, DAVE_KEY) => {  
   const entities = [
 	/* core & meta */
 	'Campaign',
@@ -57,7 +57,7 @@ export const starter = async (DB_HOST, X_API_KEY) => {
 
   const readEntity = async (entityName) => {
       try {
-          let data = await fetchData(entityName, DB_HOST, X_API_KEY);
+          let data = await fetchData(entityName, DB_HOST, DAVE_KEY);
    
           if (data) {
               return data;
@@ -143,13 +143,13 @@ return {
 
 };
 
-const responseDbHandler = async function(url, tries, delay, X_API_KEY, type) {
+const responseDbHandler = async function(url, tries, delay, DAVE_KEY, type) {
     try {
         if(tries > 0) {
           
             const response = await fetch(url,{
                 headers:{
-                    'X-API-KEY':X_API_KEY
+                    'DAVE-KEY':DAVE_KEY
                 }
             });
 
@@ -161,7 +161,7 @@ const responseDbHandler = async function(url, tries, delay, X_API_KEY, type) {
             if([502, 500, 504, 429].includes(response.status)) {
 				console.error(`Error: ${response.statusText} in ${type}`)
                 await new Promise(resolve => setTimeout(resolve, delay));
-                return responseDbHandler(url, tries - 1, delay, X_API_KEY,type);
+                return responseDbHandler(url, tries - 1, delay, DAVE_KEY,type);
             }
         }  
      
@@ -173,19 +173,19 @@ const responseDbHandler = async function(url, tries, delay, X_API_KEY, type) {
     }
 };
 
-const databaseQueryHandler = async (type, DB_HOST, X_API_KEY) =>{
+const databaseQueryHandler = async (type, DB_HOST, DAVE_KEY) =>{
   console.log(`Performing DB query: ${type}`)
 
 
   return await requestManager.throttledRequest(
-    () => responseDbHandler(`${DB_HOST}${type}`,5,6000, X_API_KEY, type),
+    () => responseDbHandler(`${DB_HOST}${type}`,5,6000, DAVE_KEY, type),
     {key: `db-query-${type}`, cacheMs: 30000}
   )
 }
 
-const fetchData = async (entityName, DB_HOST, X_API_KEY) => {
+const fetchData = async (entityName, DB_HOST, DAVE_KEY) => {
  
-    const response = await databaseQueryHandler(entityName, DB_HOST, X_API_KEY);
+    const response = await databaseQueryHandler(entityName, DB_HOST, DAVE_KEY);
 
     return response
 }
