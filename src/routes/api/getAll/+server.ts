@@ -27,7 +27,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 					role: 'Previewer'
 				})
 			});
-
+			console.log(result)
 			if (result.status != 200) {
 				throw new Error('Failed to Login.');
 			}
