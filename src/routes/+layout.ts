@@ -3,6 +3,7 @@ import { loading } from '$lib/helpers/loading.svelte.js';
 import { browser } from '$app/environment';
 
 export const load = ({ fetch }) => {
+	loading.value = true;
 	if (loading.isMaintanance) {
 		loading.value = true;
 		loading.message =

@@ -21,8 +21,6 @@
 	{/each}
 </div>
 <div class="table-container text-shadow text-zinc-300">
-	<!-- Native Table Element -->
-
 	<Pagination
 		data={source}
 		{count}

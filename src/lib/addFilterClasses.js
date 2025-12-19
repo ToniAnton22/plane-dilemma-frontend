@@ -1,45 +1,54 @@
-
-
-export const addFilterClasses = ((filter) =>{
-
-    // eslint-disable-next-line no-debugger
-
+export const addFilterClasses = ((filter) => {
     if(filter?.capital){
-        return( `<div class="flex-row-reverse overflow-hidden justify-center items-center align-center w-full h-full bg-primary-50-950 rounded-lg border-red-300 border-4 ">
-        <div class="flex w-full text-lg py-2 mx-auto justify-center items-center">${filter?.name}</div>
-        <div class="card-body text-lg mx-auto px-2">Population: ${filter?.population}</div>
-        <div class="card-footer"> Give yourself time to remember what happened last session! </div>
-        <button class="btn variant-filled-surface flex justify-center w-full" id="expand">Expand</button>
-    </div>`
-    )
+        return `<div class="location-popup capital-popup">
+            <div class="popup-header">
+                <span class="popup-icon">👑</span>
+                <h3 class="popup-title">${filter?.name}</h3>
+            </div>
+            <div class="popup-divider">✦</div>
+            <div class="popup-body">
+                <p class="popup-detail"><span class="detail-label">Population:</span> ${filter?.population}</p>
+                <p class="popup-type">Capital City</p>
+            </div>
+        </div>`;
     }
     else if(filter?.shanty_Town){
-        
-        return( `<div class="flex-row-reverse overflow-hidden justify-center items-center align-center w-full h-full bg-secondary-200-800 border-4 ">
-        <div class="flex w-full text-lg py-2 mx-auto justify-center items-center">${filter?.name}</div>
-        <div class="card-body text-lg mx-auto px-2">Population: ${filter?.population}</div>
-        <div class="card-footer"> Give yourself time to remember what happened last session! </div>
-    </div>`
-    
-    )
+        return `<div class="location-popup shanty-popup">
+            <div class="popup-header">
+                <span class="popup-icon">🏚️</span>
+                <h3 class="popup-title">${filter?.name}</h3>
+            </div>
+            <div class="popup-divider">✦</div>
+            <div class="popup-body">
+                <p class="popup-detail"><span class="detail-label">Population:</span> ${filter?.population}</p>
+                <p class="popup-type">Shanty Town</p>
+            </div>
+        </div>`;
     }
     else if(filter?.port){
-
-        return( `<div class="flex-row-reverse overflow-hidden justify-center items-center align-center w-full h-full bg-linear-to-br from-cyan-700 to-blue-400 rounded-lg border-cyan-900 border-4 ">
-        <div class="flex w-full text-lg py-2 mx-auto justify-center items-center">${filter?.name}</div>
-        <div class="card-body text-lg mx-auto px-2">Population: ${filter?.population}</div>
-        <div class="card-footer"> Give yourself time to remember what happened last session! </div>
-    </div>`
-    )
+        return `<div class="location-popup port-popup">
+            <div class="popup-header">
+                <span class="popup-icon">⚓</span>
+                <h3 class="popup-title">${filter?.name}</h3>
+            </div>
+            <div class="popup-divider">✦</div>
+            <div class="popup-body">
+                <p class="popup-detail"><span class="detail-label">Population:</span> ${filter?.population}</p>
+                <p class="popup-type">Port Town</p>
+            </div>
+        </div>`;
     }
     else{
-        return( `<div class="flex-row-reverse overflow-hidden justify-center items-center align-center w-full h-full bg-amber-700 rounded-lg border-red-600 border-4 ">
-    <div class="flex w-full text-lg py-2 mx-auto justify-center items-center">${filter?.name}</div>
-    <div class="card-body text-lg mx-auto px-2">Population: ${filter?.population}</div>
-    <div class="card-footer"> Give yourself time to remember what happened last session! </div>
-    </div>`
-)
+        return `<div class="location-popup town-popup">
+            <div class="popup-header">
+                <span class="popup-icon">🏘️</span>
+                <h3 class="popup-title">${filter?.name}</h3>
+            </div>
+            <div class="popup-divider">✦</div>
+            <div class="popup-body">
+                <p class="popup-detail"><span class="detail-label">Population:</span> ${filter?.population}</p>
+                <p class="popup-type">Town</p>
+            </div>
+        </div>`;
     }
-    
-    
-})
+});

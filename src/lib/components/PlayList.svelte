@@ -30,7 +30,6 @@
 		background: #333;
 	}
 	
-	/* Style the buttons that are used to open and close the accordion panel */
 	button.accordion {		
 		background: #222;
 		color: #bbb;
@@ -44,7 +43,6 @@
 		transition: 0.4s;
 	}
 
-	/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 	button.active {
 		background-color: #888;
 		color: black;

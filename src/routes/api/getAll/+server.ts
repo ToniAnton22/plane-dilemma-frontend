@@ -12,7 +12,7 @@ import { dev } from '$app/environment';
 export const GET: RequestHandler = async ({ url, cookies }) => {
 	try {
 		let token = cookies.get('token');
-
+		
 		if (!token) {
 			const result = await fetch(`${DB_HOST}/api/User/login`, {
 				method: 'POST',
@@ -56,7 +56,6 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 
 		if (resultCheck) {
 			const data = await starter([], [], token);
-
 			return json({ data, success: true, message: 'Successful' }, { status: 200 });
 		} else {
 			const result = await fetch(`${DB_HOST}/api/User/login`, {

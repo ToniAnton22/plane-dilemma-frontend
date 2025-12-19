@@ -179,7 +179,7 @@ export const starter = async (
 						);
 					},{key:`${lowerCaseName}`})
 			);
-	
+
 			if (data) {
 				return data;
 			} else {
@@ -280,12 +280,12 @@ const responseDbHandler = async function (url, tries, delay, daveKey, method, au
 					'X-Internal-Request': INTERNAL_KEY
 				}
 			});
-
+	
 			if (response.ok) {
 
 				return await response.json();
 			}
-
+			
 			// Using includes for cleaner code
 			if ([502, 500, 504, 429].includes(response.status)) {
 				console.error(`Error: ${response.statusText} in ${type}`);
