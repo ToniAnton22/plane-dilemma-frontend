@@ -14,8 +14,14 @@ export const setItem = (key,value) =>{
 
 export const getItem = (key) =>{
     if(!import.meta.env.SSR){
-        const item = sessionStorage?.getItem(key);
-        return item ? JSON.parse(item) : null;
+        try{
+
+            const item = sessionStorage?.getItem(key);
+            return item ? JSON.parse(item) : null;
+        }catch(e){
+            console.error(e)
+            return null
+        }
     }
     return 
 }

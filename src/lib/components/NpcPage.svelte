@@ -1,6 +1,6 @@
 <script>
 	import Book from './Book.svelte';
-
+	import {BookX} from 'lucide-svelte'
 	let { npc } = $props();
 
 	let visible = $state(false);
@@ -27,7 +27,7 @@
 	</div>
 {/snippet}
 {#snippet snippetRight()}
-	<div class="flex flex-col items-start justify-start h-full p-4">
+	<div class="flex flex-col items-start justify-start h-full p-4 mx-4">
 		<h2 class="text-xl font-semibold text-gray-800 mt-4">Details</h2>
 		<p class="text-gray-600 mt-2">{npc?.description}</p>
 		<h2 class="text-xl font-semibold text-gray-800 mt-4">Background</h2>
@@ -42,7 +42,7 @@
 		<Book {snippetLeft} {snippetRight} />
 	</div>
 	<button
-		class="absolute border-4 w-12 h-8 z-50 bg-red-400 text-zinc-500 border-amber-100 top-6 left-6"
-		onclick={() => (visible = false)}>X</button
+		class="absolute border w-12 h-8 z-50 bg-stone-400/80 rounded-2xl text-zinc-200 font-bold border-amber-100 top-6 left-6 mx-auto flex justify-center items-center"
+		onclick={() => (visible = false)}><BookX /></button
 	>
 {/if}

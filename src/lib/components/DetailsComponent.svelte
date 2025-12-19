@@ -20,7 +20,7 @@
 	let paginationSettings;
 </script>
 
-<!-- <div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center">
     {#if details?.population}
         <div class="relative z-16">
             <h1 class="text-3xl">Population</h1>
@@ -37,4 +37,4 @@
             
         </div>
     {/if}
-</div> -->
+</div>

@@ -108,7 +108,7 @@
 	let mapStyle = import.meta.env.VITE_MAP_STYLE;
 	// Reactive statement to handle towns updates
 
-	const towns = $derived(data?.locations);
+	let towns = $derived(data?.locations);
 	if (!towns) {
 		throw new Error('Towns data is not available');
 	}
@@ -133,7 +133,7 @@
 		let el = document.createElement(`div`);
 		let button = document.createElement('button');
 		el.setAttribute('id', `town${town?.id}`);
-
+	
 		let capital = town?.capital?.trim();
 		let marker;
 		if (capital) {
@@ -166,7 +166,9 @@
 		}
 
 		marker.getElement('button').addEventListener('click', (e) => {
-			town = town
+			selectedTown = town
+
+			townView = true
 		});
 		return markers.push(marker);
 	}
@@ -273,7 +275,7 @@
 	</div>
 {/if}
 
-<div class="absolute right-0 h-160 w-fit bg-transparent overflow-scroll z-20">
+<!-- <div class="absolute right-0 h-160 w-fit bg-transparent overflow-scroll z-20">
 	<div class="flex flex-row-reverse w-full h-full">
 		<div
 			class="grid grid-cols-2 gap-2 h-full w-64 items-center px-4 text-black rounded-l-full rounded-t-none mb-20 pb-20 overflow-scroll"
@@ -319,7 +321,7 @@
 			</ListBox>
 		{/if}
 	</div>
-</div>
+</div> -->
 
 <a href="/home" class="absolute w-12 h-12 m-6 pt-2 hover:pointer">
 	<svg
