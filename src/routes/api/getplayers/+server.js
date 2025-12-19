@@ -1,4 +1,4 @@
-import {DB_HOST, X_API_KEY} from "$env/static/private";
+import {DB_HOST, DAVE_KEY} from "$env/static/private";
 
 // Define the GET request handler
 export async function GET() {
@@ -8,7 +8,7 @@ export async function GET() {
             const response = await fetch(`${DB_HOST}players`,
                 {
                     headers:{
-                        'X-API-KEY':X_API_KEY
+                        'DAVE-KEY':DAVE_KEY
                       }
                 }
              );

@@ -1,11 +1,11 @@
-import {DB_HOST,X_API_KEY} from "$env/static/private"
+import {DB_HOST,DAVE_KEY} from "$env/static/private"
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET() {
     async function dataFetch(retires = 3, delay =6000){
         const response = await fetch(`${DB_HOST}locations`,   {
           headers:{
-            'X-API-KEY':X_API_KEY
+            'DAVE-KEY':DAVE_KEY
           }
         })
 
