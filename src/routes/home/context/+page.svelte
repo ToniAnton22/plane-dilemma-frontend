@@ -95,7 +95,7 @@
 </script>
 
 
-<div class="fixed inset-0 -z-20 bg-gradient-to-b from-indigo-950 via-purple-900 to-slate-900">
+<div class="fixed inset-0 -z-20 bg-gradient-to-b from-indigo-950 via-purple-900/20 to-slate-900">
 	<img
 		src="/images/yonal-writing.png"
 		class="absolute w-full h-full object-cover opacity-30 mix-blend-overlay"
@@ -182,7 +182,6 @@
 </div>
 
 <style lang="postcss">
-	/* Floating particles background effect */
 	.particles {
 		position: absolute;
 		width: 100%;

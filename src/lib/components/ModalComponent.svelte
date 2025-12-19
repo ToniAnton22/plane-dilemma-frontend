@@ -24,10 +24,10 @@
 		</Dialog.Trigger>
 		<Portal>
 			<Dialog.Backdrop
-				class="fixed inset-0 z-50 bg-gradient-to-br from-slate-950/80 via-purple-950/80 to-slate-950/80 backdrop-blur-sm {animBackdrop}"
+				class="fixed inset-0 z-50 bg-gradient-to-br from-slate-950/80 via-purple-950/40 to-slate-950/80 backdrop-blur-sm {animBackdrop}"
 			/>
 			<Dialog.Positioner class="fixed inset-0 z-50 flex justify-start items-center p-8">
-				<Dialog.Content class="scroll-container h-[90vh] w-[500px] relative {animModal}">
+				<Dialog.Content class="scroll-container h-[90vh] w-[500px] relative {animModal} ">
 					<div class="scroll-paper">
 						<div class="scroll-curl-top"></div>
 
@@ -183,13 +183,6 @@
 			0 20px 60px rgba(0, 0, 0, 0.5),
 			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 		padding: 3rem 2rem;
-		background-image: repeating-linear-gradient(
-			90deg,
-			transparent,
-			transparent 2px,
-			rgba(139, 69, 19, 0.02) 2px,
-			rgba(139, 69, 19, 0.02) 4px
-		);
 	}
 
 	.scroll-curl-top,
