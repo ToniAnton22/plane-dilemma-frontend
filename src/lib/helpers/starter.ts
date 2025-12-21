@@ -170,7 +170,7 @@ export const starter = async (
 				async () =>
 					await requestManager.throttledRequest(async () => {
 						return await responseDbHandler(
-							`${DB_HOST}/api/${entityName}?campaignId=${CAMPAIGN_ID}`,
+							`${DB_HOST}/${entityName}?campaignId=${CAMPAIGN_ID}`,
 							5,
 							4000,
 							DAVE_KEY,

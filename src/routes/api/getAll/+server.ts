@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		let token = cookies.get('token');
 		
 		if (!token) {
-			const result = await fetch(`${DB_HOST}/api/User/login`, {
+			const result = await fetch(`${DB_HOST}/User/login`, {
 				method: 'POST',
 				headers: {
 					'DAVE-KEY': DAVE_KEY,
@@ -42,7 +42,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 				secure: !dev
 			});
 		}
-		const checkToken = await fetch(`${DB_HOST}/api/User/check/token`, {
+		const checkToken = await fetch(`${DB_HOST}/User/check/token`, {
 			headers: {
 				'DAVE-KEY': DAVE_KEY,
 				Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 			const data = await starter([], [], token);
 			return json({ data, success: true, message: 'Successful' }, { status: 200 });
 		} else {
-			const result = await fetch(`${DB_HOST}/api/User/login`, {
+			const result = await fetch(`${DB_HOST}/User/login`, {
 				headers: {
 					'DAVE-KEY': DAVE_KEY,
 					'Content-Type': 'application/json',
